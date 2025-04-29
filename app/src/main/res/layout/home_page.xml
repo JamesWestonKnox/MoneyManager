@@ -33,6 +33,7 @@
             android:textColor="#1F4E5F"
             android:textSize="36sp"
             android:textStyle="bold" />
+
     </LinearLayout>
 
     <Space
@@ -116,4 +117,22 @@
 
     </androidx.cardview.widget.CardView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"></LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#1F4E5F"
+        app:itemIconTint="@color/selector_nav_item_color"
+        app:itemTextColor="@color/selector_nav_item_color"
+        app:menu="@menu/bottom_nav_bar"
+        app:labelVisibilityMode="labeled"/>
+
 </LinearLayout>
+
