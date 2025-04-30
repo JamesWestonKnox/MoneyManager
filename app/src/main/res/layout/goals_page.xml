@@ -52,7 +52,7 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/imageView4"
                     android:layout_width="72dp"
                     android:layout_height="66dp"
                     android:layout_marginLeft="60dp"
@@ -62,7 +62,9 @@
                     android:background="#FDFDFD"
                     android:clickable="true"
                     app:srcCompat="@drawable/ic_account"
-                    app:tint="#1F4E5F" />
+                    app:tint="#1F4E5F"
+                    android:contentDescription="@string/account_icon_desc" />
+
 
             </LinearLayout>
 
@@ -75,16 +77,32 @@
                 <!-- Background CardView -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="444dp"
+                    android:layout_height="443dp"
                     android:layout_marginTop="20dp"
                     app:cardBackgroundColor="#79A8A9"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="32dp"
                     app:contentPadding="16dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <!-- Floating Label -->
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="top|center_horizontal"
+                        android:background="@drawable/rounded_label_background"
+                        android:elevation="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="6dp"
+                        android:text="Your goals"
+                        android:textColor="#FFFFFF"
+                        android:translationY="-16dp"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="347dp"
+                        android:layout_height="506dp"
                         android:orientation="vertical">
 
                         <!-- === GOAL CARD 1 === -->
@@ -131,7 +149,7 @@
                                         android:layout_height="20dp"
                                         android:layout_marginVertical="8dp"
                                         android:max="100"
-                                        android:progress="100"
+                                        android:progress="75"
                                         android:progressTint="#4F9DE3" />
 
                                     <LinearLayout
@@ -169,10 +187,13 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="end"
-                                        android:layout_marginTop="8dp"
+                                        android:layout_marginTop="5dp"
                                         android:backgroundTint="#D6F5F5"
+                                        android:minWidth="48dp"
+                                        android:minHeight="48dp"
                                         android:text="Expand"
                                         android:textColor="#1F4E5F" />
+
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
                         </FrameLayout>
@@ -220,7 +241,7 @@
                                         android:layout_height="20dp"
                                         android:layout_marginVertical="8dp"
                                         android:max="100"
-                                        android:progress="100"
+                                        android:progress="50"
                                         android:progressTint="#4F9DE3" />
 
                                     <LinearLayout
@@ -258,41 +279,32 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="end"
-                                        android:layout_marginTop="8dp"
+                                        android:layout_marginTop="5dp"
                                         android:backgroundTint="#D6F5F5"
                                         android:text="Expand"
                                         android:textColor="#1F4E5F" />
+
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
                         </FrameLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Floating Label -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|center_horizontal"
-                    android:background="@drawable/rounded_label_background"
-                    android:paddingHorizontal="24dp"
-                    android:paddingVertical="6dp"
-                    android:text="Your goals"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:elevation="10dp"
-                    android:fontFamily="@font/roboto" />
+
             </FrameLayout>
 
             <!-- New Goal Button -->
+            <!-- New Goal Button -->
             <Button
+                android:id="@+id/btnNewGoal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="New goal"
                 android:layout_gravity="end"
-                android:layout_marginTop="-60dp"
+                android:layout_marginTop="-58dp"
                 android:backgroundTint="#1F4E5F"
                 android:textColor="#FFFFFF" />
+
         </LinearLayout>
     </ScrollView>
 

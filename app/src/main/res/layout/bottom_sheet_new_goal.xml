@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/editGoalName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Goal Name"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editGoalAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Goal Amount"
+        android:inputType="numberDecimal"
+        android:layout_marginTop="12dp" />
+
+    <TextView
+        android:id="@+id/tvGoalDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Goal Date"
+        android:padding="12dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/date_picker_bg"
+        android:textColor="#444" />
+
+    <Button
+        android:id="@+id/btnSaveGoal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Goal"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#557C83"
+        android:textColor="#FFFFFF"/>
+</LinearLayout>
