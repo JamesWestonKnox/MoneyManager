@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F4F7F7"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:scrollbarSize="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,6 +38,19 @@
             android:textSize="36sp"
             android:textStyle="bold" />
 
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="72dp"
+            android:layout_height="66dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="#FDFDFD"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_account"
+            app:tint="#1F4E5F" />
+
     </LinearLayout>
 
     <Space
@@ -59,72 +73,125 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="45dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 app:cardBackgroundColor="#1F4E5F"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="2dp"
-                app:contentPadding="24dp">
+                app:contentPadding="5dp">
 
                 <TextView
-                    android:id="@+id/tv_budgetName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/tvWelcomeMessage"
+                    android:layout_width="275dp"
+                    android:layout_height="54dp"
+                    android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/roboto"
-                    android:text="TextView"
+                    android:text="Thursday, 20 Mar Goodmorning, James"
                     android:textAlignment="center"
                     android:textColor="#F4F7F7"
-                    android:textSize="30sp" />
+                    android:textSize="20dp" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="291dp"
+                android:layout_height="67dp"
+                android:layout_gravity="center"
                 android:layout_marginHorizontal="45dp"
                 android:layout_marginTop="15dp"
                 app:cardBackgroundColor="#1F4E5F"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="2dp"
-                app:contentPadding="24dp">
+                app:contentPadding="5dp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="4sp"
+                    android:text="R442 Example"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvAccountMessage"
-                    android:layout_width="match_parent"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|top"
                     android:fontFamily="@font/roboto"
-                    android:text="TextView"
+                    android:text="Account total:"
                     android:textAlignment="center"
                     android:textColor="#F4F7F7"
-                    android:textSize="30sp" />
+                    android:textSize="18sp" />
+
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_height="30dp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="388dp"
+        android:layout_height="229dp"
+        android:layout_gravity="center"
         app:cardBackgroundColor="#79A8A9"
+        app:cardCornerRadius="8dp">
+
+        <ScrollView
+            android:layout_width="357dp"
+            android:layout_height="171dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:padding="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:background="#F8F7F7"
+                    android:text="Goal 1" />
+            </LinearLayout>
+        </ScrollView>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="154dp"
+        android:layout_height="39dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="-245dp"
+        app:cardBackgroundColor="#1F4E5F"
         app:cardCornerRadius="8dp"
-        app:cardElevation="32dp"
-        app:contentPadding="24dp"
-        app:contentPaddingTop="17dp">
+        app:cardPreventCornerOverlap="false">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
-
+            android:layout_gravity="center"
+            android:text="Your Goals"
+            android:textColor="#FDFCFC"
+            android:textSize="20sp" />
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="273dp"
         android:layout_weight="1"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="vertical">
+
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -134,8 +201,8 @@
         android:background="#1F4E5F"
         app:itemIconTint="@color/selector_nav_item_color"
         app:itemTextColor="@color/selector_nav_item_color"
-        app:menu="@menu/bottom_nav_bar"
-        app:labelVisibilityMode="labeled"/>
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_bar" />
 
 </LinearLayout>
 
