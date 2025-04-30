@@ -25,6 +25,14 @@
         </activity>
         <activity android:name=".AccountActivity">
         </activity>
+        <activity android:name=".BudgetsActivity">
+        </activity>
+        <activity android:name=".TransactionsActivity">
+        </activity>
+        <activity android:name=".GoalsActivity">
+        </activity>
+        <activity android:name=".ReportsActivity">
+        </activity>
     </application>
 
 </manifest>
