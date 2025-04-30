@@ -35,20 +35,19 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardForm"
-        android:layout_width="375dp"
-        android:layout_height="500dp"
+        android:layout_width="394dp"
+        android:layout_height="596dp"
         android:layout_below="@id/headerLayout"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="48dp"
         app:cardBackgroundColor="#79A8A9"
         app:cardCornerRadius="8dp"
         app:cardElevation="32dp"
         app:contentPadding="18dp">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="338dp"
-            android:layout_height="443dp"
+            android:layout_width="359dp"
+            android:layout_height="485dp"
             android:layout_gravity="center|center_horizontal"
             android:background="#1F4E5F"
             app:cardBackgroundColor="#1F4E5F"
@@ -68,7 +67,8 @@
                     android:layout_weight="1"
                     android:padding="1dp"
                     android:text=" Name"
-                    android:textColor="#FDFDFD" />
+                    android:textColor="#FDFDFD"
+                    android:textSize="16sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -98,7 +98,8 @@
                     android:layout_weight="1"
                     android:padding="1dp"
                     android:text=" Surname"
-                    android:textColor="#FBFAFA" />
+                    android:textColor="#FBFAFA"
+                    android:textSize="16sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -128,7 +129,8 @@
                     android:layout_weight="1"
                     android:padding="1dp"
                     android:text=" Email"
-                    android:textColor="#FBFAFA" />
+                    android:textColor="#FBFAFA"
+                    android:textSize="16sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -158,7 +160,8 @@
                     android:layout_weight="1"
                     android:padding="1dp"
                     android:text=" Password"
-                    android:textColor="#FBFAFA" />
+                    android:textColor="#FBFAFA"
+                    android:textSize="16sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -214,7 +217,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="#1F4E5F"
             android:backgroundTint="#1F4E5F"
@@ -224,14 +227,14 @@
             android:paddingBottom="6dp"
             android:text="Account details"
             android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="98dp"
         android:layout_below="@id/cardForm"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="38dp"
         android:orientation="vertical"
         android:padding="16dp">
 

@@ -55,11 +55,11 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="27dp" />
+        android:layout_height="51dp" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="217dp"
         android:layout_margin="10dp"
         app:cardBackgroundColor="#79A8A9"
         app:cardCornerRadius="8dp"
@@ -68,8 +68,8 @@
         app:contentPaddingTop="17dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="182dp"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
@@ -83,8 +83,8 @@
 
                 <TextView
                     android:id="@+id/tvWelcomeMessage"
-                    android:layout_width="275dp"
-                    android:layout_height="54dp"
+                    android:layout_width="272dp"
+                    android:layout_height="64dp"
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/roboto"
                     android:text="Thursday, 20 Mar Goodmorning, James"
@@ -98,7 +98,7 @@
                 android:layout_height="67dp"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="45dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="30dp"
                 app:cardBackgroundColor="#1F4E5F"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="2dp"
@@ -133,18 +133,19 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        android:layout_height="54dp" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="388dp"
-        android:layout_height="229dp"
+        android:layout_width="406dp"
+        android:layout_height="333dp"
         android:layout_gravity="center"
+        android:layout_margin="10dp"
         app:cardBackgroundColor="#79A8A9"
         app:cardCornerRadius="8dp">
 
         <ScrollView
             android:layout_width="357dp"
-            android:layout_height="171dp"
+            android:layout_height="273dp"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:padding="5dp">
@@ -169,7 +170,7 @@
         android:layout_width="154dp"
         android:layout_height="39dp"
         android:layout_gravity="center"
-        android:layout_marginTop="-245dp"
+        android:layout_marginTop="-362dp"
         app:cardBackgroundColor="#1F4E5F"
         app:cardCornerRadius="8dp"
         app:cardPreventCornerOverlap="false">
@@ -186,8 +187,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:layout_marginTop="273dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -195,9 +195,9 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_marginTop="387dp"
         android:background="#1F4E5F"
         app:itemIconTint="@color/selector_nav_item_color"
         app:itemTextColor="@color/selector_nav_item_color"

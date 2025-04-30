@@ -81,53 +81,61 @@
         android:layout_width="match_parent"
         android:layout_height="12dp" />
 
-    <ScrollView
-        android:layout_width="384dp"
-        android:layout_height="412dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="407dp"
+        android:layout_height="536dp"
         android:layout_gravity="center"
-        android:background="#1F4E5F"
-        android:isScrollContainer="true">
+        app:cardBackgroundColor="#1F4E5F"
+        app:cardCornerRadius="8dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <ScrollView
+            android:layout_width="378dp"
+            android:layout_height="498dp"
+            android:layout_gravity="center"
+            android:background="#1F4E5F"
+            android:isScrollContainer="true">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="360dp"
-                android:layout_height="44dp"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                app:cardBackgroundColor="#2BD632"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="32dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <androidx.cardview.widget.CardView
+                    android:layout_width="360dp"
+                    android:layout_height="44dp"
                     android:layout_gravity="center"
-                    android:text="Example Record 1" />
-            </androidx.cardview.widget.CardView>
+                    android:layout_margin="10dp"
+                    app:cardBackgroundColor="#2BD632"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="32dp">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="360dp"
-                android:layout_height="44dp"
-                android:layout_gravity="center"
-                android:background="#FA0707"
-                app:cardBackgroundColor="#F40505"
-                app:cardCornerRadius="8dp">
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Example Record 1" />
+                </androidx.cardview.widget.CardView>
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <androidx.cardview.widget.CardView
+                    android:layout_width="360dp"
+                    android:layout_height="44dp"
                     android:layout_gravity="center"
-                    android:text="Example Record 2" />
-            </androidx.cardview.widget.CardView>
+                    android:background="#FA0707"
+                    app:cardBackgroundColor="#F40505"
+                    app:cardCornerRadius="8dp">
 
-        </LinearLayout>
-    </ScrollView>
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Example Record 2" />
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -142,19 +150,20 @@
         android:layout_width="wrap_content"
         android:layout_height="58dp"
         android:layout_gravity="right|center_vertical"
+        android:layout_marginBottom="100dp"
         android:insetRight="10dp"
         android:insetBottom="15dp"
         android:letterSpacing="0.079"
         android:paddingRight="16dp"
-        android:text="Add Transaction"
 
+        android:text="Add Transaction"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textSize="14sp"
         app:cornerRadius="8dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="#1F4E5F"
