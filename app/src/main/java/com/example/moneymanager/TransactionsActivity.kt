@@ -3,6 +3,7 @@ package com.example.moneymanager
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.moneymanager.com.example.moneymanager.GoalsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class TransactionsActivity: AppCompatActivity() {
