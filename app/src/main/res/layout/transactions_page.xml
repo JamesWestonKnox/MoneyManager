@@ -110,7 +110,7 @@
                     app:cardElevation="32dp">
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/tvRemainingSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -126,7 +126,7 @@
                     app:cardCornerRadius="8dp">
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/tvSpentSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
