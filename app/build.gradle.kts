@@ -44,9 +44,8 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
+    // Room
     implementation("androidx.room:room-runtime:2.7.1")
-    annotationProcessor("androidx.room:room-compiler:2.7.1")
-
     implementation("androidx.room:room-ktx:2.7.1")
     kapt("androidx.room:room-compiler:2.7.1")
 
@@ -55,5 +54,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
 }
