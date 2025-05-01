@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="100dp"
+    android:orientation="vertical"
+    android:visibility="visible"
+    android:padding="16dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="#FFFEFE"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="2dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="16dp"
+        app:contentPaddingBottom="20dp"
+        app:contentPaddingLeft="15dp"
+        app:contentPaddingRight="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvPageName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginBottom="-20dp"
+                android:fontFamily="@font/roboto"
+                android:paddingTop="15dp"
+                android:text="New Transaction"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#1F4E5F"
+                android:textSize="36sp"
+                android:textStyle="bold" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="539dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="#1F4E5F"
+                android:paddingBottom="15dp"
+                app:cardBackgroundColor="#1F4E5F"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="347dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="35dp"
+                        android:text="Transaction amount:"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+                    <EditText
+                        android:id="@+id/edtAmount"
+                        android:layout_width="274dp"
+                        android:layout_height="37dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="12dp"
+                        android:background="#F8F7F7"
+                        android:backgroundTint="#F1EDED"
+                        android:hint="R0.00"
+                        android:inputType="numberDecimal"
+                        android:textColor="#0B0B0B"
+                        android:textColorHint="#040404" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Date:"
+                        android:textColor="#FFFFFF" />
+
+                    <EditText
+                        android:id="@+id/editTextDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Select a date"
+                        android:focusable="false"
+                        android:clickable="true"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#CCCCCC"
+                        android:backgroundTint="#FFFFFF"
+                        android:layout_marginBottom="12dp" />
+
+
+                    <Spinner
+                        android:id="@+id/spinnerTransactionType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"/>
+
+                    <Spinner
+                        android:id="@+id/spinnerTransactionCategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"/>
+
+                    <EditText
+                        android:id="@+id/edtDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_marginBottom="12dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:gravity="top"
+                        android:hint="Description (Optional)"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#CCCCCC" />
+
+                    <Button
+                        android:id="@+id/btnAttachFile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Attach a file/Image" />
+
+                    <LinearLayout
+                        android:layout_width="319dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="#B0BEC5"
+                            android:text="Cancel"
+                            android:textColor="#1F4E5F" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="#FFFFFF"
+                            android:text="Save"
+                            android:textColor="#1F4E5F" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

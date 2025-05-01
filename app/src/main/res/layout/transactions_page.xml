@@ -82,15 +82,15 @@
         android:layout_height="12dp" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="407dp"
-        android:layout_height="536dp"
+        android:layout_width="392dp"
+        android:layout_height="438dp"
         android:layout_gravity="center"
         app:cardBackgroundColor="#1F4E5F"
         app:cardCornerRadius="8dp">
 
         <ScrollView
-            android:layout_width="378dp"
-            android:layout_height="498dp"
+            android:layout_width="337dp"
+            android:layout_height="417dp"
             android:layout_gravity="center"
             android:background="#1F4E5F"
             android:isScrollContainer="true">

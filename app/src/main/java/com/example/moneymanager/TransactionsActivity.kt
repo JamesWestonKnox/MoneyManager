@@ -2,6 +2,7 @@ package com.example.moneymanager
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moneymanager.com.example.moneymanager.GoalsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -11,7 +12,14 @@ class TransactionsActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.transactions_page)
 
+        //Add Transaction button functionality
+        val btnAddTransaction = findViewById<View>(R.id.btnAddTransaction)
+        btnAddTransaction.setOnClickListener {
+            val intent = Intent(this, AddTransactionActivity::class.java)
+            startActivity(intent)
+        }
 
+        //Nav bar functionality
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.selectedItemId = R.id.nav_transactions
 

@@ -7,4 +7,12 @@
         <item name="colorSecondary">#03DAC6</item>
         <item name="colorOnSecondary">#000000</item>
     </style>
+    <style name="PopupTheme.NoTitleBar" parent="Theme.AppCompat.Dialog">
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.3</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
 </resources>
