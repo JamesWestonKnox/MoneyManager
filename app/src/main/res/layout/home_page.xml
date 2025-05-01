@@ -39,7 +39,7 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/imageView4"
             android:layout_width="72dp"
             android:layout_height="66dp"
             android:layout_marginLeft="60dp"

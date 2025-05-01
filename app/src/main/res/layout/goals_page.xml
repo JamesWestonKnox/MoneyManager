@@ -1,6 +1,324 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation"
+        android:fillViewport="true"
+        android:background="#F4F7F7">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Header: Icon and Title -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="97dp"
+                    android:layout_height="91dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="10dp"
+                    android:adjustViewBounds="false"
+                    android:cropToPadding="false"
+                    app:srcCompat="@drawable/logo" />
+
+                <TextView
+                    android:id="@+id/tvPageName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="55dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Goals"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="#1F4E5F"
+                    android:textSize="36sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="72dp"
+                    android:layout_height="66dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="#FDFDFD"
+                    android:clickable="true"
+                    app:srcCompat="@drawable/ic_account"
+                    app:tint="#1F4E5F"
+                    android:contentDescription="@string/account_icon_desc" />
+
+
+            </LinearLayout>
+
+            <!-- Floating Label and Card Container -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp">
+
+                <!-- Background CardView -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="443dp"
+                    android:layout_marginTop="20dp"
+                    app:cardBackgroundColor="#79A8A9"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="32dp"
+                    app:contentPadding="16dp">
+
+                    <!-- Floating Label -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|center_horizontal"
+                        android:background="@drawable/rounded_label_background"
+                        android:elevation="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="6dp"
+                        android:text="Your goals"
+                        android:textColor="#FFFFFF"
+                        android:translationY="-16dp"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="347dp"
+                        android:layout_height="506dp"
+                        android:orientation="vertical">
+
+                        <!-- === GOAL CARD 1 === -->
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="4dp"
+                                android:layout_marginTop="24dp"
+                                app:cardBackgroundColor="#79A8A9"
+                                app:cardCornerRadius="12dp"
+                                app:cardElevation="0dp" />
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="156dp"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginTop="1dp"
+                                app:cardBackgroundColor="#1F4E5F"
+                                app:cardCornerRadius="12dp"
+                                app:cardElevation="6dp"
+                                app:contentPadding="16dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Monthly Budget"
+                                        android:textColor="#FFFFFF"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold" />
+
+                                    <ProgressBar
+                                        style="@android:style/Widget.ProgressBar.Horizontal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="20dp"
+                                        android:layout_marginVertical="8dp"
+                                        android:max="100"
+                                        android:progress="75"
+                                        android:progressTint="#4F9DE3" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="start"
+                                            android:text="0%"
+                                            android:textColor="#FFFFFF" />
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="center"
+                                            android:text="50%"
+                                            android:textColor="#FFFFFF" />
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="end"
+                                            android:text="100%"
+                                            android:textColor="#FFFFFF" />
+                                    </LinearLayout>
+
+
+                                    <Button
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="end"
+                                        android:layout_marginTop="5dp"
+                                        android:backgroundTint="#D6F5F5"
+                                        android:minWidth="48dp"
+                                        android:minHeight="48dp"
+                                        android:text="Expand"
+                                        android:textColor="#1F4E5F" />
+
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+                        </FrameLayout>
+
+                        <!-- === GOAL CARD 2 === -->
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="32dp">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="4dp"
+                                app:cardBackgroundColor="#79A8A9"
+                                app:cardCornerRadius="12dp"
+                                app:cardElevation="0dp" />
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="328dp"
+                                android:layout_height="157dp"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginTop="1dp"
+                                app:cardBackgroundColor="#1F4E5F"
+                                app:cardCornerRadius="12dp"
+                                app:cardElevation="6dp"
+                                app:contentPadding="16dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="New Goal"
+                                        android:textColor="#FFFFFF"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold" />
+
+                                    <ProgressBar
+                                        style="@android:style/Widget.ProgressBar.Horizontal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="20dp"
+                                        android:layout_marginVertical="8dp"
+                                        android:max="100"
+                                        android:progress="50"
+                                        android:progressTint="#4F9DE3" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="start"
+                                            android:text="0%"
+                                            android:textColor="#FFFFFF" />
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="center"
+                                            android:text="50%"
+                                            android:textColor="#FFFFFF" />
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="end"
+                                            android:text="100%"
+                                            android:textColor="#FFFFFF" />
+                                    </LinearLayout>
+
+
+                                    <Button
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="end"
+                                        android:layout_marginTop="5dp"
+                                        android:backgroundTint="#D6F5F5"
+                                        android:text="Expand"
+                                        android:textColor="#1F4E5F" />
+
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+                        </FrameLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+            </FrameLayout>
+
+            <!-- New Goal Button -->
+            <!-- New Goal Button -->
+            <Button
+                android:id="@+id/btnNewGoal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New goal"
+                android:layout_gravity="end"
+                android:layout_marginTop="-58dp"
+                android:backgroundTint="#1F4E5F"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Navigation Bar (fixed) -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#1F4E5F"
+        app:itemIconTint="@color/selector_nav_item_color"
+        app:itemTextColor="@color/selector_nav_item_color"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_bar" />
+</RelativeLayout>
+
+

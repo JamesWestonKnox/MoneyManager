@@ -38,10 +38,9 @@ class MainActivity : AppCompatActivity() {
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 lifecycleScope.launch {
-                    // Check if email already exists
                     val existingUser = userDao.getUserByEmail(email)
+
                     if (existingUser == null) {
-                        // Create new user
                         val newUser = User(email = email, password = password)
                         userDao.insertUser(newUser)
                         showToast("Registration successful")
@@ -60,10 +59,8 @@ class MainActivity : AppCompatActivity() {
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 lifecycleScope.launch {
-                    // Check if user exists
                     val existingUser = userDao.getUserByEmail(email)
                     if (existingUser != null && existingUser.password == password) {
-                        // Navigate to HomeActivity (homepage)
                         val intent = Intent(this@MainActivity, HomeActivity::class.java)
                         startActivity(intent)
                         finish()

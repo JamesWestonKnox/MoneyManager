@@ -13,7 +13,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.home_page)
 
         //Allowing user to navigate to the account page
-        val imageView3 = findViewById<View>(R.id.imageView3)
+        val imageView3 = findViewById<View>(R.id.imageView4)
         imageView3.setOnClickListener {
             val intent = Intent(this, AccountActivity::class.java)
             startActivity(intent)
