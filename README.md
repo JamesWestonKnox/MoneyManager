@@ -2,14 +2,14 @@
 
 A simple Android app to help you manage your money by tracking expenses, setting goals, and organizing your finances.
 
-# Group 1
+## Group 1
 
 Project leader: 
-James Knox - ST10048826
+- James Knox-ST10048826
 
 Group Members:
-Thomas Knox - ST10275468
-Jared Allen -
+- Thomas Knox-ST10275468
+- Jared Allen-
 
 ## Features
 
