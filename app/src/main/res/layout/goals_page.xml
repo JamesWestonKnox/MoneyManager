@@ -51,30 +51,16 @@
                     android:textSize="36sp"
                     android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="72dp"
-                    android:layout_height="66dp"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:background="#FDFDFD"
-                    android:clickable="true"
-                    app:srcCompat="@drawable/ic_account"
-                    app:tint="#1F4E5F"
-                    android:contentDescription="@string/account_icon_desc" />
-
 
             </LinearLayout>
 
-            <!-- Floating Label and Card Container -->
+            <!-- Overlapping Label and Card Container -->
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp">
 
-                <!-- Background CardView -->
+                <!-- Background  -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="443dp"
@@ -84,7 +70,7 @@
                     app:cardElevation="32dp"
                     app:contentPadding="16dp">
 
-                    <!-- Floating Label -->
+                    <!-- Overlapping Label -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -105,7 +91,7 @@
                         android:layout_height="506dp"
                         android:orientation="vertical">
 
-                        <!-- === GOAL CARD 1 === -->
+                        <!-- GOAL CARD 1 Monthly Budget -->
                         <FrameLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -184,8 +170,8 @@
 
 
                                     <Button
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
+                                        android:layout_width="100dp"
+                                        android:layout_height="48dp"
                                         android:layout_gravity="end"
                                         android:layout_marginTop="5dp"
                                         android:backgroundTint="#D6F5F5"
@@ -198,7 +184,7 @@
                             </androidx.cardview.widget.CardView>
                         </FrameLayout>
 
-                        <!-- === GOAL CARD 2 === -->
+                        <!--  GOAL CARD 2 New Goal Progress -->
                         <FrameLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -274,13 +260,15 @@
                                             android:textColor="#FFFFFF" />
                                     </LinearLayout>
 
-
+                                    <!--  Expand Button -->
                                     <Button
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
+                                        android:layout_width="100dp"
+                                        android:layout_height="48dp"
                                         android:layout_gravity="end"
                                         android:layout_marginTop="5dp"
                                         android:backgroundTint="#D6F5F5"
+                                        android:minWidth="80dp"
+                                        android:minHeight="80dp"
                                         android:text="Expand"
                                         android:textColor="#1F4E5F" />
 
@@ -292,9 +280,7 @@
 
 
             </FrameLayout>
-
-            <!-- New Goal Button -->
-            <!-- New Goal Button -->
+            <!--  New Goal Button-->
             <Button
                 android:id="@+id/btnNewGoal"
                 android:layout_width="wrap_content"
@@ -308,7 +294,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Bottom Navigation Bar (fixed) -->
+    <!--  Nav Bar -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
