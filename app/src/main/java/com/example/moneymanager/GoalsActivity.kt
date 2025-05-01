@@ -1,11 +1,17 @@
 package com.example.moneymanager.com.example.moneymanager
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.moneymanager.BudgetsActivity
+import com.example.moneymanager.HomeActivity
 import com.example.moneymanager.R
+import com.example.moneymanager.ReportsActivity
+import com.example.moneymanager.TransactionsActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.*
 
@@ -57,6 +63,58 @@ class GoalsActivity : AppCompatActivity() {
 
             bottomSheetDialog.show()
         }
-    }
+
+
+        //Navbar functionality
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNav.selectedItemId = R.id.nav_goals
+
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_goals -> {
+                    true
+                }
+
+                R.id.nav_budgets -> {
+
+                    startActivity(Intent(this, BudgetsActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    finish()
+
+                    true
+                }
+                R.id.nav_transactions -> {
+
+                    startActivity(Intent(this, TransactionsActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    finish()
+
+                    true
+                }
+
+                R.id.nav_reports -> {
+
+                    startActivity(Intent(this, ReportsActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    finish()
+
+                    true
+                }
+
+                R.id.nav_home -> {
+
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    finish()
+
+                    true
+                }
+
+
+                else -> false
+
+            }
+
+    }}
 }
 
