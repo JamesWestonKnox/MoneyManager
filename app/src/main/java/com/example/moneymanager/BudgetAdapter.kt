@@ -15,10 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 class BudgetAdapter(
     private val context: Context,
     private val budgets : List<Budget>,
-    private val allTransactions : List<UserTransaction>
-): RecyclerView.Adapter<BudgetAdapter.BudgetViewHolder>(){
+    private var allTransactions : List<UserTransaction>
 
-    inner class BudgetViewHolder(view: View) : RecyclerView.ViewHolder(view){
+): RecyclerView.Adapter<BudgetAdapter.BudgetViewHolder>() {
+
+    inner class BudgetViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvLimit: TextView = view.findViewById(R.id.tv_limit)
         val tvSpent: TextView = view.findViewById(R.id.tvSpentSmall)
         val tvRemaining: TextView = view.findViewById(R.id.tvRemainingSmall)
@@ -28,6 +29,7 @@ class BudgetAdapter(
         val progressBarBig: CircularProgressIndicator = view.findViewById(R.id.progressBarBig)
         val tvLimitExpanded: TextView = view.findViewById(R.id.tv_limit2)
         val rvTransaction: RecyclerView = view.findViewById(R.id.rvTransact)
+        val tvPercentage: TextView = view.findViewById(R.id.tvPercentage)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BudgetViewHolder {
@@ -69,13 +71,17 @@ class BudgetAdapter(
         budget.budgetAmount = totalSpent
         holder.tvRemaining.text = "Remaining: R${budget.budgetMaxLimit - budget.budgetAmount}"
         holder.tvSpent.text = "Spent: R${totalSpent}"
-        val progress = ((budget.budgetAmount.toFloat() / budget.budgetMaxLimit.toFloat()) * 100).toInt()
+        val progress =
+            ((budget.budgetAmount.toFloat() / budget.budgetMaxLimit.toFloat()) * 100).toInt()
         holder.progressBarSmall.setProgressCompat(progress, true)
         holder.progressBarBig.setProgressCompat(progress, true)
+        holder.tvPercentage.text = "${progress}%"
         holder.rvTransaction.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = TransactionAdapter(context, matchingTransactions)
+        }
     }
-} }
+
+}
 
 
