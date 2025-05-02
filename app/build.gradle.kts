@@ -50,7 +50,7 @@ dependencies {
     kapt("androidx.room:room-compiler:2.7.1")
 
     implementation("com.google.android.material:material:1.10.0")
-
+    implementation("com.google.android.material:material:1.4.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

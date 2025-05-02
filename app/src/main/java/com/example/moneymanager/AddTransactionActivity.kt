@@ -24,6 +24,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 
 class AddTransactionActivity: AppCompatActivity() {
@@ -71,8 +73,16 @@ class AddTransactionActivity: AppCompatActivity() {
             val datePickerDialog = DatePickerDialog(
                 this,
                 { _, selectedYear, selectedMonth, selectedDay ->
-                    transactionDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
-                    editTextDate.setText(transactionDate)
+                    val selectedCalendar = Calendar.getInstance()
+                    selectedCalendar.set(selectedYear, selectedMonth, selectedDay)
+
+                    val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                    val formattedDate = formatter.format(selectedCalendar.time)
+
+                    transactionDate = formattedDate
+                    editTextDate.setText(formattedDate)
+
+
                 }, year, month, day
 
             )
