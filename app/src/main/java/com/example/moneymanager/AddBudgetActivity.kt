@@ -58,6 +58,12 @@ class AddBudgetActivity: AppCompatActivity() {
                 Toast.makeText(this, "Please enter a valid name and amount", Toast.LENGTH_SHORT).show()
             }
         }
+
+        val btnCancel = findViewById<Button>(R.id.btnCancelBudget)
+        btnCancel.setOnClickListener{
+
+            finish()
+        }
     }
 
     private fun getUserid(): Long{
