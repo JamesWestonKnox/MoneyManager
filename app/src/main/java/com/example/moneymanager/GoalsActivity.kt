@@ -1,4 +1,13 @@
-package com.example.moneymanager.com.example.moneymanager
+/**
+ * GoalsActivity.kt
+ *
+ *
+ *
+ *
+ *  Assistance provided by ChatGPT, OpenAI (2025). https://chat.openai.com
+ */
+
+package com.example.moneymanager
 
 import android.animation.ValueAnimator
 import android.app.DatePickerDialog
@@ -7,11 +16,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.example.moneymanager.BudgetsActivity
-import com.example.moneymanager.HomeActivity
-import com.example.moneymanager.R
-import com.example.moneymanager.ReportsActivity
-import com.example.moneymanager.TransactionsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.*
@@ -193,3 +197,4 @@ class GoalsActivity : AppCompatActivity() {
     }
 }
 
+// ============================== End of file ==============================

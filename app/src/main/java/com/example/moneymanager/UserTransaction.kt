@@ -1,6 +1,14 @@
+/**
+ * UserTransaction.kt
+ *
+ *
+ *
+ *
+ *  Assistance provided by ChatGPT, OpenAI (2025). https://chat.openai.com
+ */
+
 package com.example.moneymanager
 
-import android.net.Uri
 import androidx.room.PrimaryKey
 import androidx.room.Entity
 
@@ -15,3 +23,5 @@ data class UserTransaction(
     val attachment: String,
     val userId: Long
 )
+
+// ============================== End of file ==============================

@@ -1,3 +1,12 @@
+/**
+ * HomeActivity.kt
+ *
+ *
+ *
+ *
+ *  Assistance provided by ChatGPT, OpenAI (2025). https://chat.openai.com
+ */
+
 package com.example.moneymanager
 
 import android.content.Intent
@@ -5,7 +14,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.moneymanager.com.example.moneymanager.GoalsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -103,3 +111,5 @@ class HomeActivity : AppCompatActivity() {
     }
 
 }
+
+// ============================== End of file ==============================

@@ -1,3 +1,13 @@
+/**
+ * AddBudgetActivity.kt
+ *
+ *
+ *
+ *
+ *  Assistance provided by ChatGPT, OpenAI (2025). https://chat.openai.com
+ */
+
+
 package com.example.moneymanager
 
 import android.os.Bundle
@@ -72,3 +82,4 @@ class AddBudgetActivity: AppCompatActivity() {
     }
 }
 
+// ============================== End of file ==============================

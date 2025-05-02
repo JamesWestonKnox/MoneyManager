@@ -1,3 +1,12 @@
+/**
+ * AppDatabase.kt
+ *
+ *
+ *
+ *
+ *  Assistance provided by ChatGPT, OpenAI (2025). https://chat.openai.com
+ */
+
 package com.example.moneymanager
 
 import android.content.Context
@@ -32,3 +41,6 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 }
+
+
+// ============================== End of file ==============================

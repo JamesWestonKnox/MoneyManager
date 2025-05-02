@@ -1,5 +1,14 @@
+/**
+ * AccountActivity.kt
+ *
+ *
+ *
+ *
+ *  Assistance provided by ChatGPT, OpenAI (2025). https://chat.openai.com
+ */
+
 package com.example.moneymanager
-import android.content.Context
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -10,9 +19,11 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
 
+
 class AccountActivity : AppCompatActivity(){
 
     private lateinit var userDao: UserDao
+
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -54,7 +65,7 @@ class AccountActivity : AppCompatActivity(){
             val updatedEmail = emailInput.text.toString()
             val updatedPassword = passwordInput.text.toString()
 
-            // Save the updated data to Room Database
+            // Save the updated data to database
             lifecycleScope.launch {
                 userDao.updateUser(
                     User(
@@ -66,14 +77,17 @@ class AccountActivity : AppCompatActivity(){
                     )
                 )
             }
-
-            // Show a success message (You can replace this with a Toast or Snackbar)
+            //success toast
             val message = "Changes saved successfully!"
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
     }
+
+    //retrieves userid from sharedPrefs
     private fun getUserid(): Long{
         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
         return sharedPref.getLong("USER_ID", -1L)
     }
 }
+
+// ============================== End of file ==============================

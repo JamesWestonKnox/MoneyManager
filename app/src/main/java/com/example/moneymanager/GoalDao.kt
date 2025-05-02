@@ -1,3 +1,12 @@
+/**
+ * GoalsDao.kt
+ *
+ *
+ *
+ *
+ *  Assistance provided by ChatGPT, OpenAI (2025). https://chat.openai.com
+ */
+
 package com.example.moneymanager
 
 import androidx.room.Dao
@@ -12,3 +21,5 @@ interface GoalDao {
     @Query("SELECT * FROM goals")
     suspend fun getAllGoals(): List<Goal>
 }
+
+// ============================== End of file ==============================
