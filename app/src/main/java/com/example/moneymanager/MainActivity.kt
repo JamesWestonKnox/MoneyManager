@@ -2,14 +2,13 @@ package com.example.moneymanager
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -32,25 +31,10 @@ class MainActivity : AppCompatActivity() {
 
         userDao = AppDatabase.getDatabase(this).userDao()
 
-        registerButton.setOnClickListener {
-            val email = emailEditText.text.toString().trim()
-            val password = passwordEditText.text.toString().trim()
-
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                lifecycleScope.launch {
-                    val existingUser = userDao.getUserByEmail(email)
-
-                    if (existingUser == null) {
-                        val newUser = User(email = email, password = password)
-                        userDao.insertUser(newUser)
-                        showToast("Registration successful")
-                    } else {
-                        showToast("User with this email already exists")
-                    }
-                }
-            } else {
-                showToast("Please enter a valid email and password")
-            }
+        registerButton.setOnClickListener{
+            val bottomSheetDialog = BottomSheetDialog(this)
+            val sheetView = LayoutInflater.from(this).inflate(R.layout.register_popup, null)
+            bottomSheetDialog.setContentView(sheetView)
         }
 
         loginButton.setOnClickListener {

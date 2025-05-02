@@ -28,7 +28,7 @@ class GoalsActivity : AppCompatActivity() {
 
     private var savedGoalName: String = "New Goal"
     private var savedGoalAmount: Double = 0.0
-    private var currentProgressAmount: Double = 0.0 // You can tie this to actual savings data later.
+    private var currentProgressAmount: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +42,7 @@ class GoalsActivity : AppCompatActivity() {
 
         expandButton1.setOnClickListener {
             if (expandableLayout1.visibility == View.GONE) {
-                // Expand with animation
+
                 expandableLayout1.measure(
                     View.MeasureSpec.makeMeasureSpec((expandableLayout1.parent as View).width, View.MeasureSpec.EXACTLY),
                     View.MeasureSpec.UNSPECIFIED
