@@ -108,7 +108,10 @@
         android:layout_margin="10dp"
         app:cardBackgroundColor="#79A8A9"
         app:cardCornerRadius="8dp"
-        app:contentPadding="15dp">
+        app:contentPaddingBottom="15dp"
+        app:contentPaddingLeft="15dp"
+        app:contentPaddingRight="15dp"
+        app:contentPaddingTop="25dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_goalHome"
