@@ -29,7 +29,10 @@
         <activity android:name=".BudgetsActivity" />
         <activity android:name=".TransactionsActivity" />
         <activity android:name=".ReportsActivity" />
-        
+        <activity
+            android:name=".AddTransactionActivity"
+            android:theme="@style/PopupTheme.NoTitleBar" />
+
     </application>
 
 </manifest>
