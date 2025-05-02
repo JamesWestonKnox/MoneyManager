@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#79A8A9"
+    android:background="#78A7A8"
+    android:backgroundTintMode="screen"
     android:paddingBottom="15dp"
     android:visibility="visible">
 
@@ -72,6 +73,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -90,7 +92,20 @@
                     android:text="R500"
                     android:textColor="#FFFFFF"
                     android:textSize="20sp" />
+
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnAddToGoal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:backgroundTint="#78A7A8"
+                android:text="Add to goal"
+                android:textColor="#F2F5F5"
+                app:cornerRadius="8dp" />
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
