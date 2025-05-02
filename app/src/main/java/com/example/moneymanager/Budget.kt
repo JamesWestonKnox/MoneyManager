@@ -8,5 +8,8 @@ import androidx.room.PrimaryKey
 data class Budget(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val name: String,
-
+    val userID: Long,
+    val budgetMaxLimit: Double,
+    val budgetAmount: Double = 0.00,
+    val budgetRemaining: Double = budgetMaxLimit - budgetAmount
 )
