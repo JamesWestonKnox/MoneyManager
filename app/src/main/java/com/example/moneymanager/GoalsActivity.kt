@@ -1,195 +1,132 @@
 package com.example.moneymanager.com.example.moneymanager
 
-import android.animation.ValueAnimator
-import android.app.DatePickerDialog
+
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.moneymanager.AppDatabase
 import com.example.moneymanager.BudgetsActivity
+import com.example.moneymanager.Goal
+import com.example.moneymanager.GoalAdapter
 import com.example.moneymanager.HomeActivity
 import com.example.moneymanager.R
 import com.example.moneymanager.ReportsActivity
 import com.example.moneymanager.TransactionsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import java.util.*
-import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
-import androidx.core.animation.addListener
+import kotlinx.coroutines.launch
 
 
 class GoalsActivity : AppCompatActivity() {
 
-    private lateinit var goalTitleText: TextView
-    private lateinit var goalProgressBar: ProgressBar
-    private lateinit var goalPercentText: TextView
-
-    private var savedGoalName: String = "New Goal"
-    private var savedGoalAmount: Double = 0.0
-    private var currentProgressAmount: Double = 0.0
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var goalAdapter: GoalAdapter
+    private val goalList = mutableListOf<Goal>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.goals_page)
 
-        val expandButton1 = findViewById<Button>(R.id.expandButton1)
-        val expandableLayout1 = findViewById<LinearLayout>(R.id.expandableLayout1)
+        recyclerView = findViewById(R.id.rvGoals)
+        goalAdapter = GoalAdapter(goalList)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = goalAdapter
 
-        val progressBar = findViewById<ProgressBar>(R.id.newGoalProgressBar)
-        val percentText = findViewById<TextView>(R.id.newGoalPercentText)
-
-        expandButton1.setOnClickListener {
-            if (expandableLayout1.visibility == View.GONE) {
-
-                expandableLayout1.measure(
-                    View.MeasureSpec.makeMeasureSpec((expandableLayout1.parent as View).width, View.MeasureSpec.EXACTLY),
-                    View.MeasureSpec.UNSPECIFIED
-                )
-                val targetHeight = expandableLayout1.measuredHeight
-
-                expandableLayout1.layoutParams.height = 0
-                expandableLayout1.visibility = View.VISIBLE
-                progressBar.visibility = View.INVISIBLE
-                percentText.visibility = View.INVISIBLE
-
-                val animator = ValueAnimator.ofInt(0, targetHeight)
-                animator.addUpdateListener { valueAnimator ->
-                    val layoutParams = expandableLayout1.layoutParams
-                    layoutParams.height = valueAnimator.animatedValue as Int
-                    expandableLayout1.layoutParams = layoutParams
-                }
-                animator.duration = 300
-                animator.interpolator = AccelerateDecelerateInterpolator()
-                animator.start()
-
-                expandButton1.text = "Collapse"
-
-            } else {
-                // Collapse with animation
-                val initialHeight = expandableLayout1.measuredHeight
-
-                val animator = ValueAnimator.ofInt(initialHeight, 0)
-                animator.addUpdateListener { valueAnimator ->
-                    val layoutParams = expandableLayout1.layoutParams
-                    layoutParams.height = valueAnimator.animatedValue as Int
-                    expandableLayout1.layoutParams = layoutParams
-                }
-
-                animator.duration = 300
-                animator.interpolator = AccelerateDecelerateInterpolator()
-                animator.start()
-
-                animator.addListener(onEnd = {
-                    expandableLayout1.visibility = View.GONE
-                    progressBar.visibility = View.VISIBLE
-                    percentText.visibility = View.VISIBLE
-                })
-
-                expandButton1.text = "Expand"
-            }
+        val dbGoal = AppDatabase.getDatabase(this)
+        lifecycleScope.launch {
+            val existingGoals = dbGoal.goalDao().getAllGoalsByUser(getUserid())
+            goalList.addAll(existingGoals)
+            goalAdapter.notifyDataSetChanged()
         }
-
-
-
-        goalTitleText = findViewById(R.id.newGoalTitleText)
-        goalProgressBar = findViewById(R.id.newGoalProgressBar)
-        goalPercentText = findViewById(R.id.newGoalPercentText)
-
-        val btnNewGoal = findViewById<Button>(R.id.btnNewGoal)
-
-        btnNewGoal.setOnClickListener {
+        val btnAddGoal = findViewById<Button>(R.id.btnNewGoal)
+        btnAddGoal.setOnClickListener {
             val bottomSheetDialog = BottomSheetDialog(this)
-            val sheetView = LayoutInflater.from(this).inflate(R.layout.bottom_sheet_new_goal, null)
+            val sheetView = layoutInflater.inflate(R.layout.bottom_sheet_new_goal, null)
             bottomSheetDialog.setContentView(sheetView)
+            bottomSheetDialog.show()
 
-            val goalName = sheetView.findViewById<EditText>(R.id.editGoalName)
-            val goalAmount = sheetView.findViewById<EditText>(R.id.editGoalAmount)
-            val goalDate = sheetView.findViewById<TextView>(R.id.tvGoalDate)
+            val etGoalName = sheetView.findViewById<EditText>(R.id.etGoalName)
+            val etGoalAmount = sheetView.findViewById<EditText>(R.id.etGoalAmount)
             val btnSaveGoal = sheetView.findViewById<Button>(R.id.btnSaveGoal)
 
-
-            goalDate.setOnClickListener {
-                val calendar = Calendar.getInstance()
-                val year = calendar.get(Calendar.YEAR)
-                val month = calendar.get(Calendar.MONTH)
-                val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-                val datePickerDialog = DatePickerDialog(this,
-                    { _, selectedYear, selectedMonth, selectedDay ->
-                        goalDate.text = "$selectedDay/${selectedMonth + 1}/$selectedYear"
-                    }, year, month, day
-                )
-                datePickerDialog.show()
-            }
-
             btnSaveGoal.setOnClickListener {
-                val name = goalName.text.toString()
-                val amountText = goalAmount.text.toString()
-                val date = goalDate.text.toString()
+                val goalName = etGoalName.text.toString()
+                val amount = etGoalAmount.text.toString().toDoubleOrNull()
+                if (goalName.isBlank() || amount == null) {
+                    Toast.makeText(this, "Please fill in all fields correctly", Toast.LENGTH_SHORT)
+                        .show()
+                    return@setOnClickListener
+                }
+                val newGoal = Goal(
+                    goalName = goalName,
+                    amount = amount,
+                    userID = getUserid()
+                )
+                lifecycleScope.launch {
+                    dbGoal.goalDao().insertGoal(newGoal)
+                    val updatedGoals = dbGoal.goalDao().getAllGoalsByUser(getUserid())
+                    runOnUiThread {
+                        goalList.clear()
+                        goalList.addAll(updatedGoals)
+                        goalAdapter.notifyDataSetChanged()
 
-                if (name.isNotEmpty() && amountText.isNotEmpty() && date.isNotEmpty()) {
-                    savedGoalName = name
-                    savedGoalAmount = amountText.toDoubleOrNull() ?: 0.0
+                        Toast.makeText(
+                            this@GoalsActivity,
+                            "Goal saved successfully",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        bottomSheetDialog.dismiss() }
+                }
+            }
+        }
+            // Navbar functionality
+            val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+            bottomNav.selectedItemId = R.id.nav_goals
 
-                    updateGoalCard()
+            bottomNav.setOnItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.nav_goals -> true
+                    R.id.nav_budgets -> {
+                        startActivity(Intent(this, BudgetsActivity::class.java))
+                        overridePendingTransition(0, 0)
+                        finish()
+                        true
+                    }
 
-                    Toast.makeText(this, "Goal saved: $name", Toast.LENGTH_SHORT).show()
-                    bottomSheetDialog.dismiss()
-                } else {
-                    Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+                    R.id.nav_transactions -> {
+                        startActivity(Intent(this, TransactionsActivity::class.java))
+                        overridePendingTransition(0, 0)
+                        finish()
+                        true
+                    }
+
+                    R.id.nav_reports -> {
+                        startActivity(Intent(this, ReportsActivity::class.java))
+                        overridePendingTransition(0, 0)
+                        finish()
+                        true
+                    }
+
+                    R.id.nav_home -> {
+                        startActivity(Intent(this, HomeActivity::class.java))
+                        overridePendingTransition(0, 0)
+                        finish()
+                        true
+                    }
+
+                    else -> false
                 }
             }
 
-            bottomSheetDialog.show()
-        }
 
 
-
-
-        // Navbar functionality
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        bottomNav.selectedItemId = R.id.nav_goals
-
-        bottomNav.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_goals -> true
-                R.id.nav_budgets -> {
-                    startActivity(Intent(this, BudgetsActivity::class.java))
-                    overridePendingTransition(0, 0)
-                    finish()
-                    true
-                }
-                R.id.nav_transactions -> {
-                    startActivity(Intent(this, TransactionsActivity::class.java))
-                    overridePendingTransition(0, 0)
-                    finish()
-                    true
-                }
-                R.id.nav_reports -> {
-                    startActivity(Intent(this, ReportsActivity::class.java))
-                    overridePendingTransition(0, 0)
-                    finish()
-                    true
-                }
-                R.id.nav_home -> {
-                    startActivity(Intent(this, HomeActivity::class.java))
-                    overridePendingTransition(0, 0)
-                    finish()
-                    true
-                }
-                else -> false
-            }
-        }
     }
-
-    private fun updateGoalCard() {
-        goalTitleText.text = savedGoalName
-
-        val percent = if (savedGoalAmount == 0.0) 0 else (currentProgressAmount / savedGoalAmount * 100).toInt()
-        goalProgressBar.progress = percent
-        goalPercentText.text = "$percent%"
-    }
-}
+    private fun getUserid(): Long {
+        val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+        return sharedPref.getLong("USER_ID", -1L)
+    }}
 

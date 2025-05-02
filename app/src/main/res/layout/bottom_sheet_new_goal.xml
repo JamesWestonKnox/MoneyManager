@@ -1,43 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="#1F4E5F"
     android:orientation="vertical"
     android:padding="24dp">
 
-    <EditText
-        android:id="@+id/editGoalName"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Goal Name"
-        android:inputType="text"
-        android:minHeight="48dp"
-        android:paddingVertical="12dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/editGoalAmount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Goal Amount"
-        android:inputType="numberDecimal"
-        android:minHeight="48dp"
-        android:paddingVertical="12dp" />
+        <TextView
+            android:id="@+id/tvGoalName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Goal Name"
+            android:textColor="#F4F7F7"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/tvGoalDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/date_picker_bg"
-        android:padding="12dp"
-        android:text="Select Goal Date"
-        android:textColor="#444" />
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="#F4F7F7"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxStrokeColor="#1F4E5F">
 
-    <Button
-        android:id="@+id/btnSaveGoal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#557C83"
-        android:text="Save Goal"
-        android:textColor="#FFFFFF" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etGoalName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:importantForAccessibility="yes"
+                android:contentDescription="Enter Goal Name" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvGoalAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Goal Amount"
+            android:textColor="#F4F7F7"
+            android:textSize="20sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="#F4F7F7"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxStrokeColor="#1F4E5F">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etGoalAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:importantForAccessibility="yes"
+                android:contentDescription="Enter Goal Amount" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnSaveGoal"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="80dp"
+                android:backgroundTint="#79A8A9"
+                android:text="Save Goal"
+                android:textColor="#F4F7F7"
+                app:cornerRadius="8dp" />
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>
