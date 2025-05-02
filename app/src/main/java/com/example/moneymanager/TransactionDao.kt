@@ -13,4 +13,7 @@ interface TransactionDao {
 
     @Query("SELECT * FROM transactions WHERE userId = :userId ORDER BY date DESC")
     fun getAllTransactionsByUser(userId: Long): List<UserTransaction>
+
+    @Query("SELECT * FROM transactions WHERE userId = :userId AND date BETWEEN :startDate AND :endDate")
+    fun getTransactionsByDate(userId: Long, startDate: String, endDate: String): List<UserTransaction>
 }

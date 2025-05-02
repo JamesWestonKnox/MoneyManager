@@ -12,6 +12,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class TransactionsActivity: AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -41,6 +47,7 @@ class TransactionsActivity: AppCompatActivity() {
         //Nav bar functionality
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.selectedItemId = R.id.nav_transactions
+
 
 
         bottomNav.setOnItemSelectedListener { item ->
@@ -91,7 +98,55 @@ class TransactionsActivity: AppCompatActivity() {
 
         }
 
+        //Allowing the user to choose 2 dates and filter the transactions using those dates
+        val btnFilter = findViewById<View>(R.id.filterButton)
+
+        btnFilter.setOnClickListener{
+            val calenderConstraints = CalendarConstraints.Builder()
+                .setValidator(DateValidatorPointForward.from(System.currentTimeMillis()))
+                .build()
+
+            val datePicker = MaterialDatePicker.Builder.dateRangePicker()
+                .setCalendarConstraints(calenderConstraints)
+                .build()
+
+            datePicker.show(supportFragmentManager, datePicker.toString())
+
+            datePicker.addOnPositiveButtonClickListener { selection ->
+                val startDate = selection.first
+                val endDate = selection.second
+
+                val startDateString = formatDate(startDate)
+                val endDateString = formatDate(endDate)
+
+                loadTransaction(startDateString, endDateString)
+
+            }
+        }
+
+
+
     }
+    //Formatting the chosen dates to match the transaction date format
+    private fun formatDate(timestamp: Long?): String{
+        val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return format.format(Date(timestamp ?: 0))
+
+    }
+    //Refreshing the page with filtered transactions
+    private fun loadTransaction(startDate: String, endDate: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val userId = getUserid()
+            val transactions = db.transactionDao().getTransactionsByDate(userId, startDate, endDate)
+
+            withContext(Dispatchers.Main) {
+                adapter = TransactionAdapter(this@TransactionsActivity, transactions)
+                recyclerView.adapter = adapter
+            }
+        }
+    }
+
+
     private fun getUserid(): Long{
         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
         return sharedPref.getLong("USER_ID", -1L)
@@ -102,7 +157,7 @@ class TransactionsActivity: AppCompatActivity() {
 
         loadTransactionData()
     }
-
+    //Refreshing the page with all the transactions
     private fun loadTransactionData(){
         CoroutineScope(Dispatchers.IO).launch {
             val userId = getUserid()
@@ -120,4 +175,6 @@ class TransactionsActivity: AppCompatActivity() {
             }
         }
     }
+
+
 }
