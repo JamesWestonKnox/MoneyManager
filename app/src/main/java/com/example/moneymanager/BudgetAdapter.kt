@@ -46,9 +46,7 @@ class BudgetAdapter(
         holder.tvRemaining.text = "Remaining: R${budget.budgetMaxLimit - budget.budgetAmount}"
         holder.tvLimitExpanded.text = "Limit: R${budget.budgetMaxLimit}"
 
-        val progress = ((budget.budgetAmount.toFloat() / budget.budgetMaxLimit.toFloat()) * 100).toInt()
-        holder.progressBarSmall.setProgressCompat(progress, true)
-        holder.progressBarBig.setProgressCompat(progress, true)
+
 
         holder.buttonExpand.setOnClickListener {
             if (holder.expandedLayout.isGone) {
@@ -64,7 +62,16 @@ class BudgetAdapter(
         val matchingTransactions = allTransactions
             .filter { it.category == budget.name }
             .take(3)
+        val TransactionsFromBudget = allTransactions
+            .filter { it.category == budget.name }
 
+        val totalSpent = TransactionsFromBudget.sumOf { it.amount }
+        budget.budgetAmount = totalSpent
+        holder.tvRemaining.text = "Remaining: R${budget.budgetMaxLimit - budget.budgetAmount}"
+        holder.tvSpent.text = "Spent: R${totalSpent}"
+        val progress = ((budget.budgetAmount.toFloat() / budget.budgetMaxLimit.toFloat()) * 100).toInt()
+        holder.progressBarSmall.setProgressCompat(progress, true)
+        holder.progressBarBig.setProgressCompat(progress, true)
         holder.rvTransaction.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = TransactionAdapter(context, matchingTransactions)

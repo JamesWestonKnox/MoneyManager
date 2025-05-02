@@ -36,6 +36,7 @@ class AddTransactionActivity: AppCompatActivity() {
     private var transactionDescription: String? = ""
     private val pickCode = 1000
     private var transactionAttachment: String? = ""
+    private var budgets: List<Budget> = listOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,15 +58,6 @@ class AddTransactionActivity: AppCompatActivity() {
         window.setBackgroundDrawableResource(android.R.color.transparent)
 
 
-        //Retrieving the transaction amount
-        val edtAmount = findViewById<EditText>(R.id.edtAmount)
-        val amount = edtAmount.text.toString()
-        transactionAmount = if (amount.isNotEmpty()){
-            amount.toDoubleOrNull() ?: 0.0
-        }
-        else{
-            0.0
-        }
 
         //Retrieving the transaction date
         val editTextDate = findViewById<EditText>(R.id.editTextDate)
@@ -87,58 +79,70 @@ class AddTransactionActivity: AppCompatActivity() {
             datePickerDialog.show()
 
         }
-
-        //Creating a drop down menu for the type of transaction
         val sType: Spinner = findViewById(R.id.spinnerTransactionType)
-        val types = listOf("Select transaction type", "Income", "Expense")
+        val sCategory: Spinner = findViewById(R.id.spinnerTransactionCategory)
 
-        val typeAdapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            types
-        )
+        // Transaction Type options
+        val types = listOf("Select Type", "Income", "Expense")
+        val typeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, types)
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         sType.adapter = typeAdapter
 
-        //Retrieving the transaction type
+        // Income categories displayed when income selected
+        val incomeCategories = listOf("Select Category", "Salary", "Investment Income", "Other Income")
+        val expenseCategories = mutableListOf("Select Category")
+        val userId = getUserid()
+        val db = AppDatabase.getDatabase(this)
+        //Getting the category names and settting it to a list so the user can choose one
+        CoroutineScope(Dispatchers.IO).launch {
+            val allBudgets = db.budgetDao().getAllBudgetsByUser(userId)
+            withContext(Dispatchers.Main){
+                budgets = allBudgets
+                for (budget in budgets){
+                    expenseCategories.add(budget.name)
+
+                }
+            }
+        }
+
+        val categoryAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, listOf("Select Category"))
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        sCategory.adapter = categoryAdapter
+
         sType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View?, position: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 transactionType = when (position) {
                     1 -> "Income"
                     2 -> "Expense"
                     else -> ""
                 }
+
+                val newCategories = when (transactionType) {
+                    "Income" -> incomeCategories
+                    "Expense" -> expenseCategories
+                    else -> listOf("Select Category")
+                }
+
+                val newAdapter = ArrayAdapter(this@AddTransactionActivity, android.R.layout.simple_spinner_item, newCategories)
+                newAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                sCategory.adapter = newAdapter
             }
-            override fun onNothingSelected(parentView: AdapterView<*>) {
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
                 transactionType = ""
             }
         }
 
-        //Creating a drop down menu for the transaction categories
-        val sCategory: Spinner = findViewById(R.id.spinnerTransactionCategory)
-
-        //This list will be received from budgets page as they will be able to create more
-        val categories = mutableListOf("Select Category", "Alcohol", "Vehicle", "Groceries")
-
-        val categoryAdapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            categories
-        )
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        sCategory.adapter = categoryAdapter
-
-        //Retrieving the transaction category
         sCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View?, position: Int, id: Long) {
-                transactionCategory = if (position > 0) categories[position] else ""
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selected = sCategory.selectedItem.toString()
+                transactionCategory = if (position > 0) selected else ""
             }
 
-            override fun onNothingSelected(parentView: AdapterView<*>) {
+            override fun onNothingSelected(parent: AdapterView<*>) {
                 transactionCategory = ""
             }
         }
-
         //Retrieving the transaction description
         val edtDescription: EditText = findViewById(R.id.edtDescription)
         transactionDescription = edtDescription.text.toString()

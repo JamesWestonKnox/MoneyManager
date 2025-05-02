@@ -19,6 +19,7 @@ class TransactionsActivity: AppCompatActivity() {
     private lateinit var db: AppDatabase
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.transactions_page)

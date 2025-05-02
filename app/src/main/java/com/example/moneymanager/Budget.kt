@@ -10,6 +10,6 @@ data class Budget(
     val name: String,
     val userID: Long,
     val budgetMaxLimit: Double,
-    val budgetAmount: Double = 0.00,
+    var budgetAmount: Double = 0.00,
     val budgetRemaining: Double = budgetMaxLimit - budgetAmount
 )
