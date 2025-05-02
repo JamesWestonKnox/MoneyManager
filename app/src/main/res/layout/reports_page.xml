@@ -34,7 +34,6 @@
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_bar"
         app:layout_constraintBottom_toBottomOf="parent" />
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ============================== End of file ============================== -->

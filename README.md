@@ -9,7 +9,7 @@ Project leader:
 
 Group Members:
 - Thomas Knox-ST10275468
-- Jared Allen-
+- Jared Allen-ST10271869
 
 ## Features
 
@@ -25,4 +25,8 @@ Group Members:
 - Android Studio
 - XML layouts
 - RoomDB
+
+## Video Demonstration
+
+-
 

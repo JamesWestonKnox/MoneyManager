@@ -1,3 +1,12 @@
+/**
+ * User.kt
+ *
+ *
+ *
+ *
+ *  Assistance provided by ChatGPT, OpenAI (2025). https://chat.openai.com
+ */
+
 package com.example.moneymanager
 
 import androidx.room.Entity
@@ -11,3 +20,5 @@ data class User(
     val email: String,
     val password: String
 )
+
+// ============================== End of file ==============================

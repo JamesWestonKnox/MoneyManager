@@ -1,3 +1,12 @@
+/**
+ * Budget.kt
+ *
+ *
+ *
+ *
+ *  Assistance provided by ChatGPT, OpenAI (2025). https://chat.openai.com
+ */
+
 package com.example.moneymanager
 
 import androidx.room.ColumnInfo
@@ -13,3 +22,6 @@ data class Budget(
     var budgetAmount: Double = 0.00,
     val budgetRemaining: Double = budgetMaxLimit - budgetAmount
 )
+
+
+// ============================== End of file ==============================
