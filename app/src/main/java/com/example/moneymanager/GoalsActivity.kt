@@ -14,12 +14,27 @@ import com.example.moneymanager.TransactionsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.*
+import android.view.View
+
 
 class GoalsActivity : AppCompatActivity() {
+
+    private lateinit var goalTitleText: TextView
+    private lateinit var goalProgressBar: ProgressBar
+    private lateinit var goalPercentText: TextView
+
+    private var savedGoalName: String = "New Goal"
+    private var savedGoalAmount: Double = 0.0
+    private var currentProgressAmount: Double = 0.0 // You can tie this to actual savings data later.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.goals_page)
+
+
+        goalTitleText = findViewById(R.id.newGoalTitleText)
+        goalProgressBar = findViewById(R.id.newGoalProgressBar)
+        goalPercentText = findViewById(R.id.newGoalPercentText)
 
         val btnNewGoal = findViewById<Button>(R.id.btnNewGoal)
 
@@ -32,6 +47,20 @@ class GoalsActivity : AppCompatActivity() {
             val goalAmount = sheetView.findViewById<EditText>(R.id.editGoalAmount)
             val goalDate = sheetView.findViewById<TextView>(R.id.tvGoalDate)
             val btnSaveGoal = sheetView.findViewById<Button>(R.id.btnSaveGoal)
+
+            val expandButton1 = findViewById<Button>(R.id.expandButton1)
+            val expandableLayout1 = findViewById<LinearLayout>(R.id.expandableLayout1)
+
+            expandButton1.setOnClickListener {
+                if (expandableLayout1.visibility == View.GONE) {
+                    expandableLayout1.visibility = View.VISIBLE
+                    expandButton1.text = "Collapse"
+                } else {
+                    expandableLayout1.visibility = View.GONE
+                    expandButton1.text = "Expand"
+                }
+            }
+
 
             goalDate.setOnClickListener {
                 val calendar = Calendar.getInstance()
@@ -49,72 +78,67 @@ class GoalsActivity : AppCompatActivity() {
 
             btnSaveGoal.setOnClickListener {
                 val name = goalName.text.toString()
-                val amount = goalAmount.text.toString()
+                val amountText = goalAmount.text.toString()
                 val date = goalDate.text.toString()
 
-                if (name.isNotEmpty() && amount.isNotEmpty() && date.isNotEmpty()) {
+                if (name.isNotEmpty() && amountText.isNotEmpty() && date.isNotEmpty()) {
+                    savedGoalName = name
+                    savedGoalAmount = amountText.toDoubleOrNull() ?: 0.0
+
+                    updateGoalCard()
+
                     Toast.makeText(this, "Goal saved: $name", Toast.LENGTH_SHORT).show()
+                    bottomSheetDialog.dismiss()
                 } else {
                     Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
                 }
-
-                bottomSheetDialog.dismiss()
             }
 
             bottomSheetDialog.show()
         }
 
-
-        //Navbar functionality
+        // Navbar functionality
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.selectedItemId = R.id.nav_goals
 
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nav_goals -> {
-                    true
-                }
-
+                R.id.nav_goals -> true
                 R.id.nav_budgets -> {
-
                     startActivity(Intent(this, BudgetsActivity::class.java))
                     overridePendingTransition(0, 0)
                     finish()
-
                     true
                 }
                 R.id.nav_transactions -> {
-
                     startActivity(Intent(this, TransactionsActivity::class.java))
                     overridePendingTransition(0, 0)
                     finish()
-
                     true
                 }
-
                 R.id.nav_reports -> {
-
                     startActivity(Intent(this, ReportsActivity::class.java))
                     overridePendingTransition(0, 0)
                     finish()
-
                     true
                 }
-
                 R.id.nav_home -> {
-
                     startActivity(Intent(this, HomeActivity::class.java))
                     overridePendingTransition(0, 0)
                     finish()
-
                     true
                 }
-
-
                 else -> false
-
             }
+        }
+    }
 
-    }}
+    private fun updateGoalCard() {
+        goalTitleText.text = savedGoalName
+
+        val percent = if (savedGoalAmount == 0.0) 0 else (currentProgressAmount / savedGoalAmount * 100).toInt()
+        goalProgressBar.progress = percent
+        goalPercentText.text = "$percent%"
+    }
 }
 
