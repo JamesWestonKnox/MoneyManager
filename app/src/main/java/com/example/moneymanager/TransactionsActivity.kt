@@ -27,14 +27,8 @@ class TransactionsActivity: AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         db = AppDatabase.getDatabase(this)
-        CoroutineScope(Dispatchers.IO).launch {
-            val userId = getUserid()
-            val transactions = db.transactionDao().getAllTransactionsByUser(userId)
-            withContext(Dispatchers.Main){
-                adapter = TransactionAdapter(this@TransactionsActivity, transactions)
-                recyclerView.adapter = adapter
-            }
-        }
+
+        loadTransactionData()
 
         //Add UserTransaction button functionality
         val btnAddTransaction = findViewById<View>(R.id.btnAddTransaction)
@@ -100,5 +94,29 @@ class TransactionsActivity: AppCompatActivity() {
     private fun getUserid(): Long{
         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
         return sharedPref.getLong("USER_ID", -1L)
+    }
+
+    override fun onResume(){
+        super.onResume()
+
+        loadTransactionData()
+    }
+
+    private fun loadTransactionData(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val userId = getUserid()
+            val transactions = db.transactionDao().getAllTransactionsByUser(userId)
+
+            withContext(Dispatchers.Main){
+                if (::adapter.isInitialized){
+                    adapter = TransactionAdapter(this@TransactionsActivity, transactions)
+                    recyclerView.adapter = adapter
+                }else {
+                    adapter = TransactionAdapter(this@TransactionsActivity, transactions)
+                    recyclerView.adapter = adapter
+                }
+
+            }
+        }
     }
 }

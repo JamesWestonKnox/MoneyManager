@@ -3,18 +3,11 @@ package com.example.moneymanager
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moneymanager.com.example.moneymanager.GoalsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import android.animation.ValueAnimator
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.TextView
-import androidx.core.animation.addListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.progressindicator.CircularProgressIndicator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,15 +27,8 @@ class BudgetsActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         db = AppDatabase.getDatabase(this)
-        CoroutineScope(Dispatchers.IO).launch {
-            val userId = getUserid()
-            val budgets = db.budgetDao().getAllBudgetsByUser(userId)
-            val transactions = db.transactionDao().getAllTransactionsByUser(userId)
-            withContext(Dispatchers.Main){
-                adapter = BudgetAdapter(this@BudgetsActivity, budgets, transactions)
-                recyclerView.adapter = adapter
-            }
-        }
+
+        loadBudgetData()
 
         val btnAddBudget = findViewById<View>(R.id.fabAddBudget)
         btnAddBudget.setOnClickListener {
@@ -103,5 +89,30 @@ class BudgetsActivity : AppCompatActivity() {
     private fun getUserid(): Long{
         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
         return sharedPref.getLong("USER_ID", -1L)
+    }
+
+    override fun onResume(){
+        super.onResume()
+
+        loadBudgetData()
+    }
+
+    private fun loadBudgetData(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val userId = getUserid()
+            val budgets = db.budgetDao().getAllBudgetsByUser(userId)
+            val transactions = db.transactionDao().getAllTransactionsByUser(userId)
+
+            withContext(Dispatchers.Main){
+                if (::adapter.isInitialized){
+                    adapter = BudgetAdapter(this@BudgetsActivity, budgets, transactions)
+                    recyclerView.adapter = adapter
+                }else {
+                    adapter = BudgetAdapter(this@BudgetsActivity, budgets, transactions)
+                    recyclerView.adapter = adapter
+                }
+
+            }
+        }
     }
 }
