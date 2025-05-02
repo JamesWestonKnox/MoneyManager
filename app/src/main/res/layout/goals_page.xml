@@ -89,9 +89,10 @@
                         android:translationY="-16dp" />
 
                     <LinearLayout
-                        android:layout_width="347dp"
-                        android:layout_height="506dp"
-                        android:orientation="vertical">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:animateLayoutChanges="true">
 
                         <!-- === GOAL CARD 1 === -->
                         <FrameLayout
@@ -126,7 +127,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Monthly Budget"
+                                        android:text=" Example Monthly Budget"
                                         android:textColor="#FFFFFF"
                                         android:textSize="18sp"
                                         android:textStyle="bold" />
@@ -221,7 +222,7 @@
                                         android:id="@+id/newGoalTitleText"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="New Goal"
+                                        android:text="Example New Goal"
                                         android:textColor="#FFFFFF"
                                         android:textSize="18sp"
                                         android:textStyle="bold" />
@@ -299,13 +300,13 @@
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="Target: $1000"
+                                            android:text="Target: R1000"
                                             android:textColor="#FFFFFF" />
 
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="Saved: $750"
+                                            android:text="Saved: R750"
                                             android:textColor="#FFFFFF" />
 
                                         <TextView
@@ -334,16 +335,15 @@
             </FrameLayout>
 
 
-            <!-- New Goal Button -->
             <Button
                 android:id="@+id/btnNewGoal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New goal"
                 android:layout_gravity="end"
-                android:layout_marginTop="-58dp"
                 android:backgroundTint="#1F4E5F"
+                android:text="New Goal"
                 android:textColor="#FFFFFF" />
+
 
         </LinearLayout>
     </ScrollView>

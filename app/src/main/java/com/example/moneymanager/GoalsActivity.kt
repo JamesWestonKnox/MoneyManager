@@ -1,5 +1,6 @@
 package com.example.moneymanager.com.example.moneymanager
 
+import android.animation.ValueAnimator
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
@@ -15,6 +16,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.*
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
+import androidx.core.animation.addListener
 
 
 class GoalsActivity : AppCompatActivity() {
@@ -30,6 +33,64 @@ class GoalsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.goals_page)
+
+        val expandButton1 = findViewById<Button>(R.id.expandButton1)
+        val expandableLayout1 = findViewById<LinearLayout>(R.id.expandableLayout1)
+
+        val progressBar = findViewById<ProgressBar>(R.id.newGoalProgressBar)
+        val percentText = findViewById<TextView>(R.id.newGoalPercentText)
+
+        expandButton1.setOnClickListener {
+            if (expandableLayout1.visibility == View.GONE) {
+                // Expand with animation
+                expandableLayout1.measure(
+                    View.MeasureSpec.makeMeasureSpec((expandableLayout1.parent as View).width, View.MeasureSpec.EXACTLY),
+                    View.MeasureSpec.UNSPECIFIED
+                )
+                val targetHeight = expandableLayout1.measuredHeight
+
+                expandableLayout1.layoutParams.height = 0
+                expandableLayout1.visibility = View.VISIBLE
+                progressBar.visibility = View.INVISIBLE
+                percentText.visibility = View.INVISIBLE
+
+                val animator = ValueAnimator.ofInt(0, targetHeight)
+                animator.addUpdateListener { valueAnimator ->
+                    val layoutParams = expandableLayout1.layoutParams
+                    layoutParams.height = valueAnimator.animatedValue as Int
+                    expandableLayout1.layoutParams = layoutParams
+                }
+                animator.duration = 300
+                animator.interpolator = AccelerateDecelerateInterpolator()
+                animator.start()
+
+                expandButton1.text = "Collapse"
+
+            } else {
+                // Collapse with animation
+                val initialHeight = expandableLayout1.measuredHeight
+
+                val animator = ValueAnimator.ofInt(initialHeight, 0)
+                animator.addUpdateListener { valueAnimator ->
+                    val layoutParams = expandableLayout1.layoutParams
+                    layoutParams.height = valueAnimator.animatedValue as Int
+                    expandableLayout1.layoutParams = layoutParams
+                }
+
+                animator.duration = 300
+                animator.interpolator = AccelerateDecelerateInterpolator()
+                animator.start()
+
+                animator.addListener(onEnd = {
+                    expandableLayout1.visibility = View.GONE
+                    progressBar.visibility = View.VISIBLE
+                    percentText.visibility = View.VISIBLE
+                })
+
+                expandButton1.text = "Expand"
+            }
+        }
+
 
 
         goalTitleText = findViewById(R.id.newGoalTitleText)
@@ -47,19 +108,6 @@ class GoalsActivity : AppCompatActivity() {
             val goalAmount = sheetView.findViewById<EditText>(R.id.editGoalAmount)
             val goalDate = sheetView.findViewById<TextView>(R.id.tvGoalDate)
             val btnSaveGoal = sheetView.findViewById<Button>(R.id.btnSaveGoal)
-
-            val expandButton1 = findViewById<Button>(R.id.expandButton1)
-            val expandableLayout1 = findViewById<LinearLayout>(R.id.expandableLayout1)
-
-            expandButton1.setOnClickListener {
-                if (expandableLayout1.visibility == View.GONE) {
-                    expandableLayout1.visibility = View.VISIBLE
-                    expandButton1.text = "Collapse"
-                } else {
-                    expandableLayout1.visibility = View.GONE
-                    expandButton1.text = "Expand"
-                }
-            }
 
 
             goalDate.setOnClickListener {
@@ -96,6 +144,9 @@ class GoalsActivity : AppCompatActivity() {
 
             bottomSheetDialog.show()
         }
+
+
+
 
         // Navbar functionality
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
