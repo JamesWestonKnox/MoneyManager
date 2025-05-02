@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.FileProvider
 import java.io.File
 
@@ -44,11 +45,11 @@ class TransactionAdapter(
         holder.tvCategory.text = transaction.category
 
         val cardColour = if (transaction.type.equals("income", ignoreCase = true))
-            android.graphics.Color.parseColor("#2BD632")
+            android.graphics.Color.parseColor("#77d46c")
         else
-            android.graphics.Color.parseColor("#F40505")
+            android.graphics.Color.parseColor("#ff6666")
 
-        holder.cardView.setBackgroundColor(cardColour)
+        holder.cardView.setCardBackgroundColor(cardColour)
 
         if (transaction.description.isNotBlank()) {
             holder.tvDescription.visibility = View.VISIBLE
@@ -57,20 +58,23 @@ class TransactionAdapter(
             holder.tvDescription.visibility = View.GONE
         }
 
+
+
         if (transaction.attachment.isNotBlank()) {
             holder.btnVAttachment.visibility = View.VISIBLE
 
             holder.btnVAttachment.setOnClickListener {
-                val file = File(transaction.attachment)
-                if (file.exists()) {
-                    val uri: Uri = FileProvider.getUriForFile(
+
+                val attachmentFile = File(transaction.attachment)
+                if (attachmentFile.exists()) {
+                    val fileUri = FileProvider.getUriForFile(
                         context,
-                        "${context.packageName}.provider", // Must match authority in manifest
-                        file
+                        "${context.packageName}.provider",
+                        attachmentFile
                     )
 
                     val intent = Intent(Intent.ACTION_VIEW)
-                    intent.setDataAndType(uri, "*/*") // You can specify MIME types if needed
+                    intent.setDataAndType(fileUri, context.contentResolver.getType(fileUri))
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
                     try {

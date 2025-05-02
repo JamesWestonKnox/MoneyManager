@@ -18,10 +18,12 @@ import java.util.Calendar
 import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Toast
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
 
 
 class AddTransactionActivity: AppCompatActivity() {
@@ -149,6 +151,12 @@ class AddTransactionActivity: AppCompatActivity() {
             startActivityForResult(intent, pickCode)
         }
 
+        val btnCancel = findViewById<Button>(R.id.btnCancel)
+        btnCancel.setOnClickListener{
+
+            finish()
+        }
+
         //Saving the transaction to the database
         val btnSaveTransaction = findViewById<Button>(R.id.btnSaveTransaction)
         btnSaveTransaction.setOnClickListener{
@@ -181,28 +189,39 @@ class AddTransactionActivity: AppCompatActivity() {
         if (requestCode == pickCode && resultCode == RESULT_OK) {
             val selectedFileUri: Uri? = data?.data
             selectedFileUri?.let { uri ->
-                transactionAttachment = uri.toString()
                 val fileName = getFileName(uri)
+                val file = File(getExternalFilesDir(null), fileName)
+
+                contentResolver.openInputStream(uri)?.use { inputStream ->
+                    file.outputStream().use { outputStream ->
+                        inputStream.copyTo(outputStream)
+                    }
+                }
+                transactionAttachment = file.absolutePath
                 Toast.makeText(this, "Selected file: $fileName", Toast.LENGTH_SHORT).show()
+
             }
         }
-    }
+     }
 
     private fun getFileName(uri: Uri): String {
-
+        var name = ""
         val cursor = contentResolver.query(uri, null, null, null, null)
-        cursor?.let {
+        cursor?.use {
 
             if (it.moveToFirst()) {
-                val columnIndex = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-                if (columnIndex >= 0) {
-                    return it.getString(columnIndex)
+                val nameIndex = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                if (nameIndex != -1 && it.moveToFirst()) {
+                    name = it.getString(nameIndex)
                 }
             }
         }
-        return ""
+        if (name.isBlank()) {
+            name = uri.lastPathSegment?.substringAfterLast('/') ?: "unknown_file"
+        }
+        return name
     }
-    //Method to retrieve the logged in user id
+
     private fun getUserid(): Long{
         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
         return sharedPref.getLong("USER_ID", -1L)
