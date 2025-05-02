@@ -58,8 +58,8 @@
         android:layout_height="51dp" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="217dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:cardBackgroundColor="#79A8A9"
         app:cardCornerRadius="8dp"
@@ -68,8 +68,8 @@
         app:contentPaddingTop="17dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="182dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
@@ -93,47 +93,13 @@
                     android:textSize="20dp" />
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="291dp"
-                android:layout_height="67dp"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="45dp"
-                android:layout_marginTop="30dp"
-                app:cardBackgroundColor="#1F4E5F"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="2dp"
-                app:contentPadding="5dp">
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:layout_marginBottom="4sp"
-                    android:text="R442 Example"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/tvAccountMessage"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|top"
-                    android:fontFamily="@font/roboto"
-                    android:text="Account total:"
-                    android:textAlignment="center"
-                    android:textColor="#F4F7F7"
-                    android:textSize="18sp" />
-
-            </androidx.cardview.widget.CardView>
-
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="54dp" />
+        android:layout_height="22dp" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="406dp"
@@ -141,29 +107,13 @@
         android:layout_gravity="center"
         android:layout_margin="10dp"
         app:cardBackgroundColor="#79A8A9"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="8dp"
+        app:contentPadding="15dp">
 
-        <ScrollView
-            android:layout_width="357dp"
-            android:layout_height="273dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:padding="5dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="match_parent"
-                    android:layout_height="34dp"
-                    android:background="#F8F7F7"
-                    android:text="Goal 1" />
-            </LinearLayout>
-        </ScrollView>
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_goalHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -187,7 +137,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="339dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -197,7 +147,7 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="387dp"
+        android:layout_marginTop="580dp"
         android:background="#1F4E5F"
         app:itemIconTint="@color/selector_nav_item_color"
         app:itemTextColor="@color/selector_nav_item_color"
