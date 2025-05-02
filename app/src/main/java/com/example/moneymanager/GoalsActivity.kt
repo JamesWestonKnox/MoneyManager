@@ -31,7 +31,7 @@ class GoalsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.goals_page)
-
+        //Using a recyclerView to display all the goals to the user
         recyclerView = findViewById(R.id.rvGoals)
         goalAdapter = GoalAdapter(goalList)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -43,6 +43,7 @@ class GoalsActivity : AppCompatActivity() {
             goalList.addAll(existingGoals)
             goalAdapter.notifyDataSetChanged()
         }
+        //AddGoal functionality
         val btnAddGoal = findViewById<Button>(R.id.btnNewGoal)
         btnAddGoal.setOnClickListener {
             val bottomSheetDialog = BottomSheetDialog(this)

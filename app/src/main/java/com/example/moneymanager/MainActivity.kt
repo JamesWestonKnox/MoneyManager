@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         userDao = AppDatabase.getDatabase(this).userDao()
 
+        //button functionality that takes the user to another page to create an account
         registerButton.setOnClickListener {
             val bottomSheetDialog = BottomSheetDialog(this)
             val sheetView = LayoutInflater.from(this).inflate(R.layout.register_popup, null)
@@ -81,7 +82,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
+        //Method allows user to login with their email and password
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()

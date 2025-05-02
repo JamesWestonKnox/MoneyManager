@@ -28,6 +28,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_page)
 
+
         val welcomeMessage = findViewById<TextView>(R.id.tvWelcomeMessage)
         val userId = getUserid()
         val recyclerView = findViewById<RecyclerView>(R.id.rv_goalHome)
@@ -38,7 +39,6 @@ class HomeActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             val db = AppDatabase.getDatabase(applicationContext)
-
             val user = db.userDao().getUserById(userId)
 
             user?.let {
@@ -48,7 +48,7 @@ class HomeActivity : AppCompatActivity() {
                     welcomeMessage.text = welcomeText
                 }
             }
-
+            //Retrieving goals from the database
             val goals = db.goalDao().getAllGoalsByUser(userId)
             withContext(Dispatchers.Main) {
                 goalList.addAll(goals)
@@ -57,15 +57,12 @@ class HomeActivity : AppCompatActivity() {
         }
 
 
-
         //Allowing user to navigate to the account page
         val imageView3 = findViewById<View>(R.id.imageView4)
         imageView3.setOnClickListener {
             val intent = Intent(this, AccountActivity::class.java)
             startActivity(intent)
         }
-
-
 
         //Making navBar functional
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)

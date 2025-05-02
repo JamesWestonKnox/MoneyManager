@@ -68,11 +68,9 @@ class AddTransactionActivity: AppCompatActivity() {
         window.attributes = layoutParams
         window.setBackgroundDrawableResource(android.R.color.transparent)
 
-
-
         //Retrieving the transaction date
         val editTextDate = findViewById<EditText>(R.id.editTextDate)
-
+        //Allowing the user to choose a date
         editTextDate.setOnClickListener {
             val calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
@@ -84,20 +82,18 @@ class AddTransactionActivity: AppCompatActivity() {
                 { _, selectedYear, selectedMonth, selectedDay ->
                     val selectedCalendar = Calendar.getInstance()
                     selectedCalendar.set(selectedYear, selectedMonth, selectedDay)
-
+                    //Setting the date format
                     val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                     val formattedDate = formatter.format(selectedCalendar.time)
-
+                    //Saving the date to the database and displaying it to the user
                     transactionDate = formattedDate
                     editTextDate.setText(formattedDate)
 
-
                 }, year, month, day
-
             )
             datePickerDialog.show()
-
         }
+        //Creating a drop down menu for categories and type of tranaction
         val sType: Spinner = findViewById(R.id.spinnerTransactionType)
         val sCategory: Spinner = findViewById(R.id.spinnerTransactionCategory)
 
@@ -112,22 +108,20 @@ class AddTransactionActivity: AppCompatActivity() {
         val expenseCategories = mutableListOf("Select Category")
         val userId = getUserid()
         val db = AppDatabase.getDatabase(this)
-        //Getting the category names and settting it to a list so the user can choose one
+        //Getting the created category names and setting it to a list so the user can choose one
         CoroutineScope(Dispatchers.IO).launch {
             val allBudgets = db.budgetDao().getAllBudgetsByUser(userId)
             withContext(Dispatchers.Main){
                 budgets = allBudgets
                 for (budget in budgets){
                     expenseCategories.add(budget.name)
-
                 }
             }
         }
-
         val categoryAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, listOf("Select Category"))
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         sCategory.adapter = categoryAdapter
-
+        //Displays different options depending on the type of transaction
         sType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 transactionType = when (position) {
@@ -135,7 +129,6 @@ class AddTransactionActivity: AppCompatActivity() {
                     2 -> "Expense"
                     else -> ""
                 }
-
                 val newCategories = when (transactionType) {
                     "Income" -> incomeCategories
                     "Expense" -> expenseCategories
@@ -162,6 +155,7 @@ class AddTransactionActivity: AppCompatActivity() {
                 transactionCategory = ""
             }
         }
+
         //Retrieving the transaction description
         val edtDescription: EditText = findViewById(R.id.edtDescription)
         transactionDescription = edtDescription.text.toString()
@@ -173,7 +167,7 @@ class AddTransactionActivity: AppCompatActivity() {
             intent.type = "*/*"
             startActivityForResult(intent, pickCode)
         }
-
+        //Cancel button functionality
         val btnCancel = findViewById<Button>(R.id.btnCancel)
         btnCancel.setOnClickListener{
 

@@ -51,13 +51,10 @@ class BudgetAdapter(
     override fun onBindViewHolder(holder: BudgetViewHolder, position: Int) {
         val budget = budgets[position]
 
-
         holder.tvLimit.text = budget.name
         holder.tvSpent.text = "Spent: R${budget.budgetAmount}"
         holder.tvRemaining.text = "Remaining: R${budget.budgetMaxLimit - budget.budgetAmount}"
         holder.tvLimitExpanded.text = "Limit: R${budget.budgetMaxLimit}"
-
-
 
         holder.buttonExpand.setOnClickListener {
             if (holder.expandedLayout.isGone) {
@@ -75,11 +72,11 @@ class BudgetAdapter(
             .take(3)
         val TransactionsFromBudget = allTransactions
             .filter { it.category == budget.name }
-
         val totalSpent = TransactionsFromBudget.sumOf { it.amount }
         budget.budgetAmount = totalSpent
         holder.tvRemaining.text = "Remaining: R${budget.budgetMaxLimit - budget.budgetAmount}"
         holder.tvSpent.text = "Spent: R${totalSpent}"
+        //Setting the progress bar percentage
         val progress =
             ((budget.budgetAmount.toFloat() / budget.budgetMaxLimit.toFloat()) * 100).toInt()
         holder.progressBarSmall.setProgressCompat(progress, true)
@@ -89,6 +86,7 @@ class BudgetAdapter(
             layoutManager = LinearLayoutManager(context)
             adapter = TransactionAdapter(context, matchingTransactions)
         }
+
         holder.rvTransaction.isNestedScrollingEnabled = true
         holder.rvTransaction.setHasFixedSize(true)
     }

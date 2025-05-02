@@ -30,14 +30,14 @@ class BudgetsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.budgets_page)
-
+        //Using recyclerViews to display the budgets
         recyclerView = findViewById(R.id.budgetRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         db = AppDatabase.getDatabase(this)
-
+        //Method to retrieve budgets
         loadBudgetData()
-
+        //AddBudget button functionality
         val btnAddBudget = findViewById<View>(R.id.fabAddBudget)
         btnAddBudget.setOnClickListener {
             val intent = Intent(this, AddBudgetActivity::class.java)

@@ -36,14 +36,13 @@ class AddGoalsActivity : AppCompatActivity() {
             saveGoal()
         }
     }
-
+    //Method to retrieve userID
     private fun getUserid(): Long{
         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
         return sharedPref.getLong("USER_ID", -1L)
     }
-
+    //Method that saves a new goal to the database
     private fun saveGoal() {
-
         val goalName = etGoalName.text.toString()
         val amount = etAmount.text.toString().toDoubleOrNull()
         if (goalName.isBlank() || amount == null) {
@@ -55,6 +54,7 @@ class AddGoalsActivity : AppCompatActivity() {
             amount = amount,
             userID = getUserid()
         )
+        //Inserting the goal into the database
         lifecycleScope.launch {
             goalDB.goalDao().insertGoal(newGoal)
             runOnUiThread {

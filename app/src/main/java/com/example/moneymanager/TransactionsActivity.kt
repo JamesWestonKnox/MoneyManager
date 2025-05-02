@@ -57,7 +57,6 @@ class TransactionsActivity: AppCompatActivity() {
         bottomNav.selectedItemId = R.id.nav_transactions
 
 
-
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_transactions -> {

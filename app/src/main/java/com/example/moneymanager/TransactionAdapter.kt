@@ -53,7 +53,7 @@ class TransactionAdapter(
         holder.tvAmount.text = transaction.amount.toString()
         holder.tvDate.text = transaction.date
         holder.tvCategory.text = transaction.category
-
+        //Setting the transaction card colour to green or red depending on the type of transaction
         val cardColour = if (transaction.type.equals("income", ignoreCase = true))
             android.graphics.Color.parseColor("#77d46c")
         else
@@ -68,8 +68,7 @@ class TransactionAdapter(
             holder.tvDescription.visibility = View.GONE
         }
 
-
-
+        //Allowing the user to view attachments
         if (transaction.attachment.isNotBlank()) {
             holder.btnVAttachment.visibility = View.VISIBLE
 

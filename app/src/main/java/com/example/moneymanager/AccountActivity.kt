@@ -29,13 +29,13 @@ class AccountActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_page)
 
+        //Creating instance of database to use
         userDao = AppDatabase.getDatabase(applicationContext).userDao()
 
         val nameInput = findViewById<EditText>(R.id.txtInputName)
         val surnameInput = findViewById<EditText>(R.id.txtInputSurname)
         val emailInput = findViewById<EditText>(R.id.txtInputEmail)
         val passwordInput = findViewById<EditText>(R.id.txtInputPassword)
-
         val userId = getUserid()
 
         lifecycleScope.launch {

@@ -32,6 +32,7 @@ class AddBudgetActivity: AppCompatActivity() {
         supportActionBar?.hide()
         setContentView(R.layout.add_budget_page)
 
+        //Creating a pop up window and styling it
         val window = window
         val layoutParams = window.attributes
 
@@ -47,6 +48,7 @@ class AddBudgetActivity: AppCompatActivity() {
         val etMaxLimit = findViewById<EditText>(R.id.etMaxLimit)
         val btnCreate = findViewById<Button>(R.id.btnCreateBudget)
 
+        //Create button functionality
         btnCreate.setOnClickListener {
             budgetName = etName.text.toString()
             budgetMaxLimit = etMaxLimit.text.toString().toDoubleOrNull() ?: 0.0
@@ -54,7 +56,7 @@ class AddBudgetActivity: AppCompatActivity() {
             if (budgetName.isNotEmpty() && budgetMaxLimit > 0.0) {
                 val userId = getUserid()
                 val budget = Budget(userID = userId, name = budgetName, budgetMaxLimit = budgetMaxLimit)
-
+                //Saving budget data to the database
                 val db = AppDatabase.getDatabase(this)
                 CoroutineScope(Dispatchers.IO).launch {
                     db.budgetDao().insertBudget(budget)
@@ -68,14 +70,12 @@ class AddBudgetActivity: AppCompatActivity() {
                 Toast.makeText(this, "Please enter a valid name and amount", Toast.LENGTH_SHORT).show()
             }
         }
-
         val btnCancel = findViewById<Button>(R.id.btnCancelBudget)
         btnCancel.setOnClickListener{
-
             finish()
         }
     }
-
+    //Method to retrieve userID
     private fun getUserid(): Long{
         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
         return sharedPref.getLong("USER_ID", -1L)
