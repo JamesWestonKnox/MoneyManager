@@ -4,107 +4,98 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:id="@+id/scrollContent"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation"
-        android:fillViewport="true"
-        android:background="#F4F7F7">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="97dp"
-                    android:layout_height="91dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="10dp"
-                    android:adjustViewBounds="false"
-                    android:cropToPadding="false"
-                    app:srcCompat="@drawable/logo" />
-
-                <TextView
-                    android:id="@+id/tvPageName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="55dp"
-                    android:layout_marginTop="15dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="Goals"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="#1F4E5F"
-                    android:textSize="36sp"
-                    android:textStyle="bold" />
-
-
-            </LinearLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="560dp"
-                    android:layout_marginTop="20dp"
-                    app:cardBackgroundColor="#79A8A9"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="32dp"
-                    app:contentPadding="16dp">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvGoals"
-                        android:layout_width="match_parent"
-                        android:layout_height="489dp"
-                        android:layout_gravity="center" />
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
-
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="97dp"
+                android:layout_height="91dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:adjustViewBounds="false"
+                android:cropToPadding="false"
+                app:srcCompat="@drawable/logo" />
 
             <TextView
+                android:id="@+id/tvPageName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top|center_horizontal"
-                android:layout_marginTop="-560dp"
-                android:background="@drawable/rounded_label_background"
-                android:elevation="10dp"
+                android:layout_marginLeft="55dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/roboto"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="6dp"
-                android:text="Your goals"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:translationY="-16dp" />
-
-            <Button
-                android:id="@+id/btnNewGoal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="550dp"
-                android:backgroundTint="#1F4E5F"
-                android:text="New Goal"
-                android:textColor="#FFFFFF"
-                app:cornerRadius="8dp" />
+                android:text="Goals"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#1F4E5F"
+                android:textSize="36sp"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
-    </ScrollView>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="560dp"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="#79A8A9"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="32dp"
+                app:contentPadding="16dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvGoals"
+                    android:layout_width="match_parent"
+                    android:layout_height="489dp"
+                    android:layout_gravity="center" />
+            </androidx.cardview.widget.CardView>
+        </FrameLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="-560dp"
+            android:background="@drawable/rounded_label_background"
+            android:elevation="10dp"
+            android:fontFamily="@font/roboto"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="6dp"
+            android:text="Your goals"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:translationY="-16dp" />
+
+        <Button
+            android:id="@+id/btnNewGoal"
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="550dp"
+            android:backgroundTint="#1F4E5F"
+            android:text="New Goal"
+            android:textColor="#FFFFFF"
+            app:cornerRadius="8dp" />
+
+
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
