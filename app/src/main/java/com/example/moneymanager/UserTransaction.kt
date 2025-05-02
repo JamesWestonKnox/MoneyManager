@@ -13,5 +13,5 @@ data class UserTransaction(
     val type: String,
     val description: String,
     val attachment: String,
-    val userId: Long //Foreign key
+    val userId: Long
 )

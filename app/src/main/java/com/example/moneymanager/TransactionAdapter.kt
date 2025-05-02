@@ -19,7 +19,7 @@ import java.io.File
 
 class TransactionAdapter(
     private val context: Context,
-    private val transactions : List<UserTransaction>
+    private val transactions: List<UserTransaction>
 ): RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
 
     inner class TransactionViewHolder(view: View) : RecyclerView.ViewHolder(view) {

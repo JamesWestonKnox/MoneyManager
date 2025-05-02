@@ -1,6 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="100dp"
+    android:orientation="vertical"
+    android:visibility="visible"
+    android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="#FFFEFE"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="2dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="16dp"
+        app:contentPaddingBottom="20dp"
+        app:contentPaddingLeft="15dp"
+        app:contentPaddingRight="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvPageName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginBottom="-20dp"
+                android:fontFamily="@font/roboto"
+                android:paddingTop="15dp"
+                android:text="New Budget"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#1F4E5F"
+                android:textSize="36sp"
+                android:textStyle="bold" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="#1F4E5F"
+                android:paddingBottom="15dp"
+                app:cardBackgroundColor="#1F4E5F"
+                app:cardCornerRadius="8dp"
+                app:contentPadding="20dp">
+
+                <LinearLayout
+                    android:layout_width="347dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="35dp"
+                        android:text="Budget Name:"
+                        android:textColor="#FFFFFF"
+                        android:textSize="24sp"
+                        android:textStyle="normal" />
+
+
+                    <EditText
+                        android:id="@+id/etBudgetName"
+                        android:layout_width="300dp"
+                        android:layout_height="40dp"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginStart="35dp"
+                        android:background="#FDFDFD"
+                        android:ems="10"
+                        android:hint="Name"
+                        android:inputType="text"
+                        android:paddingStart="10dp"
+                        android:textColor="#1F4D5E"
+                        android:textColorHint="#1F4D5E"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="35dp"
+                        android:text="Budget max limit:"
+                        android:textColor="#FFFFFF"
+                        android:textSize="24sp"
+                        android:textStyle="normal" />
+
+                    <EditText
+                        android:id="@+id/etMaxLimit"
+                        android:layout_width="300dp"
+                        android:layout_height="40dp"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginStart="35dp"
+                        android:background="#FDFDFD"
+                        android:ems="10"
+                        android:hint="R0.00"
+                        android:inputType="numberDecimal"
+                        android:paddingStart="10dp"
+                        android:textAlignment="viewStart"
+                        android:textColor="#1F4D5E"
+                        android:textColorHint="#1F4D5E"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="319dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <Button
+                            android:id="@+id/btnCancelBudget"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="22dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="#78A7A8"
+                            android:text="Cancel"
+                            android:textColor="#F2F5F5" />
+
+                        <Button
+                            android:id="@+id/btnCreateBudget"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:backgroundTint="#78A7A8"
+                            android:text="Create"
+                            android:textColor="#F2F5F5" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

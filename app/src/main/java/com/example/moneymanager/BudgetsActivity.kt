@@ -12,74 +12,43 @@ import android.animation.ValueAnimator
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.TextView
 import androidx.core.animation.addListener
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.progressindicator.CircularProgressIndicator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class BudgetsActivity : AppCompatActivity() {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: BudgetAdapter
+    private lateinit var db: AppDatabase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.budgets_page)
 
-        val expandButton = findViewById<Button>(R.id.button)
+        recyclerView = findViewById(R.id.budgetRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val expandedLayout = findViewById<LinearLayout>(R.id.expandedLayout)
-
-        val progressBar = findViewById<CircularProgressIndicator>(R.id.progressBarSmall)
-        val tvSpent = findViewById<TextView>(R.id.tvSpentSmall)
-        val tvRemaining = findViewById<TextView>(R.id.tvRemainingSmall)
-
-        expandButton.setOnClickListener {
-            if (expandedLayout.visibility == View.GONE) {
-
-                expandedLayout.measure(
-                    View.MeasureSpec.makeMeasureSpec((expandedLayout.parent as View).width, View.MeasureSpec.EXACTLY),
-                    View.MeasureSpec.UNSPECIFIED
-                )
-                val targetHeight = expandedLayout.measuredHeight
-
-                expandedLayout.layoutParams.height = 0
-                expandedLayout.visibility = View.VISIBLE
-                progressBar.visibility = View.INVISIBLE
-                tvSpent.visibility = View.GONE
-                tvRemaining.visibility = View.GONE
-
-                val animator = ValueAnimator.ofInt(0, targetHeight)
-                animator.addUpdateListener { valueAnimator ->
-                    val layoutParams = expandedLayout.layoutParams
-                    layoutParams.height = valueAnimator.animatedValue as Int
-                    expandedLayout.layoutParams = layoutParams
-                }
-                animator.duration = 300
-                animator.interpolator = AccelerateDecelerateInterpolator()
-                animator.start()
-
-                expandButton.text = "Collapse"
-
-            } else {
-                // Collapse with animation
-                val initialHeight = expandedLayout.measuredHeight
-
-                val animator = ValueAnimator.ofInt(initialHeight, 0)
-                animator.addUpdateListener { valueAnimator ->
-                    val layoutParams = expandedLayout.layoutParams
-                    layoutParams.height = valueAnimator.animatedValue as Int
-                    expandedLayout.layoutParams = layoutParams
-                }
-
-                animator.duration = 300
-                animator.interpolator = AccelerateDecelerateInterpolator()
-                animator.start()
-
-                animator.addListener(onEnd = {
-                    expandedLayout.visibility = View.GONE
-                    progressBar.visibility = View.VISIBLE
-                    tvSpent.visibility = View.VISIBLE
-                    tvRemaining.visibility = View.VISIBLE
-                })
-
-                expandButton.text = "Expand"
+        db = AppDatabase.getDatabase(this)
+        CoroutineScope(Dispatchers.IO).launch {
+            val userId = getUserid()
+            val budgets = db.budgetDao().getAllBudgetsByUser(userId)
+            val transactions = db.transactionDao().getAllTransactionsByUser(userId)
+            withContext(Dispatchers.Main){
+                adapter = BudgetAdapter(this@BudgetsActivity, budgets, transactions)
+                recyclerView.adapter = adapter
             }
         }
 
+        val btnAddBudget = findViewById<View>(R.id.fabAddBudget)
+        btnAddBudget.setOnClickListener {
+            val intent = Intent(this, AddBudgetActivity::class.java)
+            startActivity(intent)
+        }
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.selectedItemId = R.id.nav_budgets
@@ -130,4 +99,9 @@ class BudgetsActivity : AppCompatActivity() {
 
             }
     }}
+
+    private fun getUserid(): Long{
+        val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+        return sharedPref.getLong("USER_ID", -1L)
+    }
 }

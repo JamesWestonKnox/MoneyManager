@@ -9,16 +9,21 @@
         android:id="@+id/editGoalName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:hint="Goal Name"
-        android:inputType="text" />
+        android:inputType="text"
+        android:paddingVertical="12dp" />
 
     <EditText
         android:id="@+id/editGoalAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:layout_marginTop="12dp"
         android:hint="Goal Amount"
         android:inputType="numberDecimal"
-        android:layout_marginTop="12dp" />
+        android:paddingVertical="12dp" />
+
 
     <TextView
         android:id="@+id/tvGoalDate"
