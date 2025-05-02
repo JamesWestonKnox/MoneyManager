@@ -150,7 +150,7 @@
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="250dp"
+                        android:layout_height="400dp"
                         app:cardBackgroundColor="#1F4C5D"
                         app:cardCornerRadius="8dp">
 
@@ -172,7 +172,10 @@
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="40dp"
                             android:layout_marginRight="5dp"
-                            android:layout_marginBottom="5dp" />
+                            android:layout_marginBottom="5dp"
+                            android:nestedScrollingEnabled="true"
+                            android:overScrollMode="always"
+                            android:scrollbars="vertical" />
                     </androidx.cardview.widget.CardView>
 
                     <TextView
@@ -180,7 +183,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="57dp"
-                        android:layout_marginTop="-360dp"
+                        android:layout_marginTop="-508dp"
                         android:layout_weight="1"
                         android:text="80%"
                         android:textColor="#FDFDFD"

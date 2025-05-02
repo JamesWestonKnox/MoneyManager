@@ -80,6 +80,8 @@ class BudgetAdapter(
             layoutManager = LinearLayoutManager(context)
             adapter = TransactionAdapter(context, matchingTransactions)
         }
+        holder.rvTransaction.isNestedScrollingEnabled = true
+        holder.rvTransaction.setHasFixedSize(true)
     }
 
 }
