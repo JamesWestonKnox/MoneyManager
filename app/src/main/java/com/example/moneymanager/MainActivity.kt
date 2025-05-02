@@ -61,6 +61,13 @@ class MainActivity : AppCompatActivity() {
                 lifecycleScope.launch {
                     val existingUser = userDao.getUserByEmail(email)
                     if (existingUser != null && existingUser.password == password) {
+                        val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+                        with(sharedPref.edit()) {
+                            //Using shared preferences to pass the user ID to the addTransaction activity
+                            putLong("USER_ID", existingUser.id)
+                            apply()
+                        }
+
                         val intent = Intent(this@MainActivity, HomeActivity::class.java)
                         startActivity(intent)
                         finish()

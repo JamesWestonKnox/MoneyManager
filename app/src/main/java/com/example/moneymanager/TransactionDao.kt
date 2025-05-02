@@ -9,8 +9,8 @@ import androidx.room.Query
 interface TransactionDao {
 
     @Insert
-    suspend fun insertTransaction(transaction: Transaction)
+    suspend fun insertTransaction(transaction: UserTransaction)
 
-    @Query("SELECT * FROM transactions")
-    suspend fun getAllTransactions(): List<Transaction>
+    @Query("SELECT * FROM transactions WHERE userId = :userId ORDER BY date DESC")
+    fun getAllTransactionsByUser(userId: Long): List<UserTransaction>
 }
