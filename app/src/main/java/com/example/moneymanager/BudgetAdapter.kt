@@ -8,10 +8,14 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.progressindicator.CircularProgressIndicator
+import androidx.core.view.isGone
+import androidx.recyclerview.widget.LinearLayoutManager
+
 
 class BudgetAdapter(
     private val context: Context,
-    private val budgets : List<Budget>
+    private val budgets : List<Budget>,
+    private val allTransactions : List<UserTransaction>
 ): RecyclerView.Adapter<BudgetAdapter.BudgetViewHolder>(){
 
     inner class BudgetViewHolder(view: View) : RecyclerView.ViewHolder(view){
@@ -23,6 +27,7 @@ class BudgetAdapter(
         val expandedLayout: View = view.findViewById(R.id.expandedLayout)
         val progressBarBig: CircularProgressIndicator = view.findViewById(R.id.progressBarBig)
         val tvLimitExpanded: TextView = view.findViewById(R.id.tv_limit2)
+        val rvTransaction: RecyclerView = view.findViewById(R.id.rvTransact)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BudgetViewHolder {
@@ -46,14 +51,24 @@ class BudgetAdapter(
         holder.progressBarBig.setProgressCompat(progress, true)
 
         holder.buttonExpand.setOnClickListener {
-            if (holder.expandedLayout.visibility == View.GONE) {
+            if (holder.expandedLayout.isGone) {
                 holder.expandedLayout.visibility = View.VISIBLE
                 holder.buttonExpand.text = "Collapse"
+                holder.progressBarSmall.visibility = View.INVISIBLE
             } else {
                 holder.expandedLayout.visibility = View.GONE
                 holder.buttonExpand.text = "Expand"
+                holder.progressBarSmall.visibility = View.VISIBLE
             }
         }
+        val matchingTransactions = allTransactions
+            .filter { it.category == budget.name }
+            .take(3)
+
+        holder.rvTransaction.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = TransactionAdapter(context, matchingTransactions)
     }
-}
+} }
+
 

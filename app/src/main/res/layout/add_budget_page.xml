@@ -84,10 +84,11 @@
                         android:layout_marginStart="35dp"
                         android:background="#FDFDFD"
                         android:ems="10"
+                        android:hint="Name"
                         android:inputType="text"
                         android:paddingStart="10dp"
-                        android:text="Name"
                         android:textColor="#1F4D5E"
+                        android:textColorHint="#1F4D5E"
                         android:textStyle="bold" />
 
                     <TextView
@@ -108,11 +109,12 @@
                         android:layout_marginStart="35dp"
                         android:background="#FDFDFD"
                         android:ems="10"
+                        android:hint="R0.00"
                         android:inputType="numberDecimal"
                         android:paddingStart="10dp"
-                        android:text="R 0.00"
                         android:textAlignment="viewStart"
                         android:textColor="#1F4D5E"
+                        android:textColorHint="#1F4D5E"
                         android:textStyle="bold" />
 
                     <LinearLayout

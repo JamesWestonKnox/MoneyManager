@@ -37,8 +37,9 @@ class BudgetsActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             val userId = getUserid()
             val budgets = db.budgetDao().getAllBudgetsByUser(userId)
+            val transactions = db.transactionDao().getAllTransactionsByUser(userId)
             withContext(Dispatchers.Main){
-                adapter = BudgetAdapter(this@BudgetsActivity, budgets)
+                adapter = BudgetAdapter(this@BudgetsActivity, budgets, transactions)
                 recyclerView.adapter = adapter
             }
         }
