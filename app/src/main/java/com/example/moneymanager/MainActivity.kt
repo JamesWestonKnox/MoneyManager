@@ -31,10 +31,46 @@ class MainActivity : AppCompatActivity() {
 
         userDao = AppDatabase.getDatabase(this).userDao()
 
-        registerButton.setOnClickListener{
+        registerButton.setOnClickListener {
             val bottomSheetDialog = BottomSheetDialog(this)
             val sheetView = LayoutInflater.from(this).inflate(R.layout.register_popup, null)
             bottomSheetDialog.setContentView(sheetView)
+            bottomSheetDialog.show()
+
+            val firstNameField = sheetView.findViewById<EditText>(R.id.etFirstName)
+            val surnameField = sheetView.findViewById<EditText>(R.id.etSurname)
+            val emailField = sheetView.findViewById<EditText>(R.id.etEmail)
+            val passwordField = sheetView.findViewById<EditText>(R.id.etPassword)
+            val btnRegisterSheet = sheetView.findViewById<Button>(R.id.btnRegister)
+
+            btnRegisterSheet.setOnClickListener {
+                val firstName = firstNameField.text.toString().trim()
+                val surname = surnameField.text.toString().trim()
+                val email = emailField.text.toString().trim()
+                val password = passwordField.text.toString().trim()
+
+                if (firstName.isEmpty() || surname.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                    showToast("Please fill in all fields")
+                    return@setOnClickListener
+                }
+
+                lifecycleScope.launch {
+                    val existingUser = userDao.getUserByEmail(email)
+                    if (existingUser != null) {
+                        showToast("User already exists with this email")
+                    } else {
+                        val newUser = User(
+                            firstName = firstName,
+                            surname = surname,
+                            email = email,
+                            password = password
+                        )
+                        userDao.insertUser(newUser)
+                        showToast("Registration successful! Please log in.")
+                        bottomSheetDialog.dismiss()
+                    }
+                }
+            }
         }
 
         loginButton.setOnClickListener {
@@ -47,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                     if (existingUser != null && existingUser.password == password) {
                         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
                         with(sharedPref.edit()) {
-                            //Using shared preferences to pass the user ID to the addTransaction activity
+
                             putLong("USER_ID", existingUser.id)
                             apply()
                         }
