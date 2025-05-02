@@ -4,14 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.moneymanager.com.example.moneymanager.GoalDao
 
 
-@Database(entities = [User::class], version = 1)
+@Database(entities = [User::class, UserTransaction::class], version = 5)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
-    //abstract fun goalDao(): GoalDao
+   // abstract fun goalDao(): GoalDao
+    abstract fun transactionDao(): TransactionDao
 
     companion object {
         @Volatile
@@ -23,7 +23,8 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "money_manager_db"
-                ).build()
+                ).fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }

@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.view.Gravity
+import android.view.SurfaceControl
 import android.view.View
 import android.view.WindowManager
 import android.widget.ArrayAdapter
@@ -17,17 +18,22 @@ import java.util.Calendar
 import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Toast
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class AddTransactionActivity: AppCompatActivity() {
 
+    //Initiating variables for the transaction
     private var transactionAmount: Double = 0.0
     private var transactionType: String = ""
     private var transactionCategory: String = ""
     private var transactionDate: String = ""
     private var transactionDescription: String? = ""
     private val pickCode = 1000
-    private var transactionAttachment: Uri? = null
+    private var transactionAttachment: String? = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +45,7 @@ class AddTransactionActivity: AppCompatActivity() {
         //Setting up the pop up window
         val window = window
         val layoutParams = window.attributes
-
+        //Layout of the pop up
         layoutParams.width = (resources.displayMetrics.widthPixels * 1)
         layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
         layoutParams.gravity = Gravity.CENTER
@@ -50,18 +56,17 @@ class AddTransactionActivity: AppCompatActivity() {
 
 
         //Retrieving the transaction amount
-        val edtAmount = findViewById<TextView>(R.id.edtAmount)
+        val edtAmount = findViewById<EditText>(R.id.edtAmount)
         val amount = edtAmount.text.toString()
-        transactionAmount = try{
-            amount.toDouble()
+        transactionAmount = if (amount.isNotEmpty()){
+            amount.toDoubleOrNull() ?: 0.0
         }
-        catch (e: NumberFormatException){
+        else{
             0.0
         }
 
-
         //Retrieving the transaction date
-        val editTextDate = findViewById<TextView>(R.id.editTextDate)
+        val editTextDate = findViewById<EditText>(R.id.editTextDate)
 
         editTextDate.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -73,7 +78,7 @@ class AddTransactionActivity: AppCompatActivity() {
                 this,
                 { _, selectedYear, selectedMonth, selectedDay ->
                     transactionDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
-                    editTextDate.text = transactionDate
+                    editTextDate.setText(transactionDate)
                 }, year, month, day
 
             )
@@ -134,7 +139,7 @@ class AddTransactionActivity: AppCompatActivity() {
 
         //Retrieving the transaction description
         val edtDescription: EditText = findViewById(R.id.edtDescription)
-        transactionDescription = edtDescription.toString()
+        transactionDescription = edtDescription.text.toString()
 
         //Retrieving the transaction attachment
         val btnAttachFile = findViewById<Button>(R.id.btnAttachFile)
@@ -144,16 +149,39 @@ class AddTransactionActivity: AppCompatActivity() {
             startActivityForResult(intent, pickCode)
         }
 
+        //Saving the transaction to the database
+        val btnSaveTransaction = findViewById<Button>(R.id.btnSaveTransaction)
+        btnSaveTransaction.setOnClickListener{
 
+            val edtAmount = findViewById<EditText>(R.id.edtAmount)
+            val edtDescription: EditText = findViewById(R.id.edtDescription)
+            val amountText = edtAmount.text.toString()
+
+            val amount = if (amountText.isNotEmpty()) amountText.toDoubleOrNull() ?: 0.0 else 0.0
+            val description = edtDescription.text.toString()
+            val type = transactionType
+            val category = transactionCategory
+            val date = transactionDate
+            val attachment = transactionAttachment ?: ""
+            //Making sure all the required fields are filled in
+            if (amount <= 0.0 || type.isEmpty() || category.isEmpty() || date.isEmpty()) {
+            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+        } else {
+            // Saving each transaction to the specific user logged in
+            val userId = getUserid()
+                //Calling the method that sends it to the database
+            saveTransaction(userId, amount, type, category, date, description, attachment)
+            finish()
+        }}
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == pickCode && resultCode == RESULT_OK) {
             val selectedFileUri: Uri? = data?.data
             selectedFileUri?.let { uri ->
-                transactionAttachment = uri
+                transactionAttachment = uri.toString()
                 val fileName = getFileName(uri)
                 Toast.makeText(this, "Selected file: $fileName", Toast.LENGTH_SHORT).show()
             }
@@ -173,6 +201,35 @@ class AddTransactionActivity: AppCompatActivity() {
             }
         }
         return ""
+    }
+    //Method to retrieve the logged in user id
+    private fun getUserid(): Long{
+        val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+        return sharedPref.getLong("USER_ID", -1L)
+    }
+
+    //Method created to save the transaction data to the database
+    private fun saveTransaction(userId: Long, amount: Double, type: String, category: String, date: String, description: String, attachment: String) {
+        val transaction = UserTransaction(
+            amount = amount,
+            date = date,
+            category = category,
+            type = type,
+            description = description.ifEmpty { "No description" },
+            attachment = attachment,
+            userId = userId
+        )
+
+        val db = AppDatabase.getDatabase(this)
+        CoroutineScope(Dispatchers.IO).launch{
+            db.transactionDao().insertTransaction(transaction)
+            withContext(Dispatchers.Main){
+                Toast.makeText(this@AddTransactionActivity, "UserTransaction saved", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+
     }
 }
 
