@@ -3,9 +3,14 @@ package com.example.moneymanager
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moneymanager.com.example.moneymanager.GoalsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeActivity : AppCompatActivity() {
 
@@ -13,12 +18,30 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_page)
 
+        val welcomeMessage = findViewById<TextView>(R.id.tvWelcomeMessage)
+        val userId = getUserid()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val db = AppDatabase.getDatabase(applicationContext)
+            val user = db.userDao().getUserById(userId)
+
+            user?.let {
+                val welcomeText = "Welcome ${user.firstName}"
+
+                withContext(Dispatchers.Main) {
+                    welcomeMessage.text = welcomeText
+                }
+            }
+        }
+
         //Allowing user to navigate to the account page
         val imageView3 = findViewById<View>(R.id.imageView4)
         imageView3.setOnClickListener {
             val intent = Intent(this, AccountActivity::class.java)
             startActivity(intent)
         }
+
+
 
         //Making navBar functional
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -73,4 +96,10 @@ class HomeActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun getUserid(): Long{
+        val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+        return sharedPref.getLong("USER_ID", -1L)
+    }
+
 }

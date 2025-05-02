@@ -47,7 +47,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="359dp"
-            android:layout_height="485dp"
+            android:layout_height="510dp"
             android:layout_gravity="center|center_horizontal"
             android:background="#1F4E5F"
             app:cardBackgroundColor="#1F4E5F"
@@ -68,7 +68,7 @@
                     android:padding="1dp"
                     android:text=" Name"
                     android:textColor="#FDFDFD"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -82,8 +82,11 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txtInputName"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:hint="Name" />
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center|center_vertical"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:textAlignment="viewStart"
+                        android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Space
@@ -99,7 +102,7 @@
                     android:padding="1dp"
                     android:text=" Surname"
                     android:textColor="#FBFAFA"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -113,8 +116,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txtInputSurname"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:hint=" Surname" />
+                        android:layout_height="match_parent"
+                        android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Space
@@ -130,7 +133,7 @@
                     android:padding="1dp"
                     android:text=" Email"
                     android:textColor="#FBFAFA"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -144,8 +147,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txtInputEmail"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:hint="Email" />
+                        android:layout_height="match_parent"
+                        android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Space
@@ -161,7 +164,7 @@
                     android:padding="1dp"
                     android:text=" Password"
                     android:textColor="#FBFAFA"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -174,8 +177,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txtInputPassword"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:hint="Password" />
+                        android:layout_height="match_parent"
+                        android:textSize="20sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -183,7 +186,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="59dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
                 android:orientation="vertical">
 
@@ -191,7 +194,6 @@
                     android:id="@+id/btnSaveChanges"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:backgroundTint="#79A8A9"
                     android:text="Save Changes"
                     app:cornerRadius="8dp">
