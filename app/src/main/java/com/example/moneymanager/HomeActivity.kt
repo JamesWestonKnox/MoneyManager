@@ -14,6 +14,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,9 +30,15 @@ class HomeActivity : AppCompatActivity() {
 
         val welcomeMessage = findViewById<TextView>(R.id.tvWelcomeMessage)
         val userId = getUserid()
+        val recyclerView = findViewById<RecyclerView>(R.id.rv_goalHome)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        val goalList = mutableListOf<Goal>()
+        val adapter = GoalAdapter(goalList)
+        recyclerView.adapter = adapter
 
         CoroutineScope(Dispatchers.IO).launch {
             val db = AppDatabase.getDatabase(applicationContext)
+
             val user = db.userDao().getUserById(userId)
 
             user?.let {
@@ -40,7 +48,15 @@ class HomeActivity : AppCompatActivity() {
                     welcomeMessage.text = welcomeText
                 }
             }
+
+            val goals = db.goalDao().getAllGoalsByUser(userId)
+            withContext(Dispatchers.Main) {
+                goalList.addAll(goals)
+                adapter.notifyDataSetChanged()
+            }
         }
+
+
 
         //Allowing user to navigate to the account page
         val imageView3 = findViewById<View>(R.id.imageView4)
