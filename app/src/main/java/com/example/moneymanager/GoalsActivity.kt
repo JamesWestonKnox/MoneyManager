@@ -1,4 +1,4 @@
-package com.example.moneymanager.com.example.moneymanager
+package com.example.moneymanager
 
 
 import android.content.Intent
@@ -8,14 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moneymanager.AppDatabase
-import com.example.moneymanager.BudgetsActivity
-import com.example.moneymanager.Goal
-import com.example.moneymanager.GoalAdapter
-import com.example.moneymanager.HomeActivity
-import com.example.moneymanager.R
-import com.example.moneymanager.ReportsActivity
-import com.example.moneymanager.TransactionsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.launch

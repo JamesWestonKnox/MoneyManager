@@ -29,6 +29,8 @@
         <activity android:name=".TransactionsActivity" />
         <activity android:name=".ReportsActivity" />
         <activity android:name=".AddGoalsActivity"/>
+        <activity android:name=".GoalsActivity"/>
+
         <activity
             android:name=".AddTransactionActivity"
             android:theme="@style/PopupTheme.NoTitleBar" />
