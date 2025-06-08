@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "312615064563",
+    "firebase_url": "https://money-manager123-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "money-manager123",
+    "storage_bucket": "money-manager123.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:312615064563:android:79ef583d6ad30e7018b886",
+        "android_client_info": {
+          "package_name": "com.example.moneymanager"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACt0CUk30bxVQN6lB1tpxkoB6yReYL6ZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

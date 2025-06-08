@@ -37,10 +37,10 @@ class GoalsActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = goalAdapter
 
-        val dbGoal = AppDatabase.getDatabase(this)
+        //val dbGoal = AppDatabase.getDatabase(this)
         lifecycleScope.launch {
-            val existingGoals = dbGoal.goalDao().getAllGoalsByUser(getUserid())
-            goalList.addAll(existingGoals)
+            //val existingGoals = dbGoal.goalDao().getAllGoalsByUser(getUserid())
+            //goalList.addAll(existingGoals)
             goalAdapter.notifyDataSetChanged()
         }
         //AddGoal functionality
@@ -69,11 +69,11 @@ class GoalsActivity : AppCompatActivity() {
                     userID = getUserid()
                 )
                 lifecycleScope.launch {
-                    dbGoal.goalDao().insertGoal(newGoal)
-                    val updatedGoals = dbGoal.goalDao().getAllGoalsByUser(getUserid())
+                   // dbGoal.goalDao().insertGoal(newGoal)
+                   // val updatedGoals = dbGoal.goalDao().getAllGoalsByUser(getUserid())
                     runOnUiThread {
                         goalList.clear()
-                        goalList.addAll(updatedGoals)
+                       // goalList.addAll(updatedGoals)
                         goalAdapter.notifyDataSetChanged()
 
                         Toast.makeText(

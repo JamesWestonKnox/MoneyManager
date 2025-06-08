@@ -22,7 +22,6 @@ class AddGoalsActivity : AppCompatActivity() {
     private lateinit var etGoalName: EditText
     private lateinit var etAmount: EditText
     private lateinit var btnSaveGoal: Button
-    private lateinit var goalDB: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +30,6 @@ class AddGoalsActivity : AppCompatActivity() {
         etGoalName = findViewById(R.id.etGoalName)
         etAmount = findViewById(R.id.etGoalAmount)
         btnSaveGoal = findViewById(R.id.btnSaveGoal)
-        goalDB = AppDatabase.getDatabase(this)
         btnSaveGoal.setOnClickListener {
             saveGoal()
         }
@@ -56,7 +54,7 @@ class AddGoalsActivity : AppCompatActivity() {
         )
         //Inserting the goal into the database
         lifecycleScope.launch {
-            goalDB.goalDao().insertGoal(newGoal)
+           // goalDB.goalDao().insertGoal(newGoal)
             runOnUiThread {
                 Toast.makeText(this@AddGoalsActivity, "Goal saved successfully", Toast.LENGTH_SHORT).show()
                 finish()

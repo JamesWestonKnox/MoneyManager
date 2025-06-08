@@ -17,10 +17,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import androidx.lifecycle.lifecycleScope
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class AddBudgetActivity: AppCompatActivity() {
 
@@ -55,21 +54,28 @@ class AddBudgetActivity: AppCompatActivity() {
 
             if (budgetName.isNotEmpty() && budgetMaxLimit > 0.0) {
                 val userId = getUserid()
-                val budget = Budget(userID = userId, name = budgetName, budgetMaxLimit = budgetMaxLimit)
-                //Saving budget data to the database
-                val db = AppDatabase.getDatabase(this)
-                CoroutineScope(Dispatchers.IO).launch {
-                    db.budgetDao().insertBudget(budget)
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(this@AddBudgetActivity, "Budget saved!", Toast.LENGTH_SHORT)
-                            .show()
-                        finish()
+                val budget = Budget(id = "", userID = userId.toDouble(), name = budgetName, budgetMaxLimit = budgetMaxLimit)
+
+                // Use coroutine to call suspend function
+                lifecycleScope.launch {
+                    val repository = BudgetRepository()
+                    val success = repository.insertBudget(budget)
+                    if (success) {
+                        runOnUiThread {
+                            Toast.makeText(this@AddBudgetActivity, "Budget saved!", Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
+                    } else {
+                        runOnUiThread {
+                            Toast.makeText(this@AddBudgetActivity, "Failed to save budget", Toast.LENGTH_LONG).show()
+                        }
                     }
                 }
             } else {
                 Toast.makeText(this, "Please enter a valid name and amount", Toast.LENGTH_SHORT).show()
             }
         }
+
         val btnCancel = findViewById<Button>(R.id.btnCancelBudget)
         btnCancel.setOnClickListener{
             finish()

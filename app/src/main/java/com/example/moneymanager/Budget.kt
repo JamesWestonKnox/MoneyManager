@@ -9,19 +9,20 @@
 
 package com.example.moneymanager
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 
-@Entity (tableName = "budgets" )
+
 data class Budget(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val name: String,
-    val userID: Long,
-    val budgetMaxLimit: Double,
-    var budgetAmount: Double = 0.00,
-    val budgetRemaining: Double = budgetMaxLimit - budgetAmount
-)
+
+    var id: String = "",
+    val name: String = "",
+    val userID: Double = 0.0,
+    val budgetMaxLimit: Double = 0.0,
+    var budgetAmount: Double = 0.0,
+) {
+    // Computed property, not saved to Firebase but used in code
+    val budgetRemaining: Double
+        get() = budgetMaxLimit - budgetAmount
+}
 
 
 // ============================== End of file ==============================

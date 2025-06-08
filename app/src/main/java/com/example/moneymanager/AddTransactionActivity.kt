@@ -48,7 +48,8 @@ class AddTransactionActivity: AppCompatActivity() {
     private val pickCode = 1000
     private var transactionAttachment: String? = ""
     private var budgets: List<Budget> = listOf()
-
+    private val transactionRepo = TransactionRepository()
+    private val budgetRepo = BudgetRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -107,17 +108,23 @@ class AddTransactionActivity: AppCompatActivity() {
         val incomeCategories = listOf("Select Category", "Salary", "Investment Income", "Other Income")
         val expenseCategories = mutableListOf("Select Category")
         val userId = getUserid()
-        val db = AppDatabase.getDatabase(this)
+
         //Getting the created category names and setting it to a list so the user can choose one
         CoroutineScope(Dispatchers.IO).launch {
-            val allBudgets = db.budgetDao().getAllBudgetsByUser(userId)
-            withContext(Dispatchers.Main){
-                budgets = allBudgets
-                for (budget in budgets){
-                    expenseCategories.add(budget.name)
+            budgets = budgetRepo.getAllBudgetsByUser(userId)
+
+            withContext(Dispatchers.Main) {
+                expenseCategories.addAll(budgets.map { it.name })
+
+                // If the type was already selected as "Expense", refresh category spinner
+                if (transactionType == "Expense") {
+                    val newAdapter = ArrayAdapter(this@AddTransactionActivity, android.R.layout.simple_spinner_item, expenseCategories)
+                    newAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    sCategory.adapter = newAdapter
                 }
             }
         }
+
         val categoryAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, listOf("Select Category"))
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         sCategory.adapter = categoryAdapter
@@ -246,6 +253,7 @@ class AddTransactionActivity: AppCompatActivity() {
 
     //Method created to save the transaction data to the database
     private fun saveTransaction(userId: Long, amount: Double, type: String, category: String, date: String, description: String, attachment: String) {
+
         val transaction = UserTransaction(
             amount = amount,
             date = date,
@@ -256,11 +264,16 @@ class AddTransactionActivity: AppCompatActivity() {
             userId = userId
         )
 
-        val db = AppDatabase.getDatabase(this)
         CoroutineScope(Dispatchers.IO).launch{
-            db.transactionDao().insertTransaction(transaction)
-            withContext(Dispatchers.Main){
-                Toast.makeText(this@AddTransactionActivity, "UserTransaction saved", Toast.LENGTH_SHORT).show()
+
+            val success = transactionRepo.insertTransaction(transaction)
+
+            withContext(Dispatchers.Main) {
+                if (success) {
+                    Toast.makeText(this@AddTransactionActivity, "Transaction saved", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@AddTransactionActivity, "Failed to save transaction", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

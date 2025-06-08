@@ -9,15 +9,13 @@
 
 package com.example.moneymanager
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 
 
-@Entity(tableName = "goals")
 data class Goal(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val goalName: String,
-    val amount: Double,
+
+    var id: Long = 0L,
+    val goalName: String = "",
+    val amount: Double = 0.0,
     val totalAmount: Double = 0.0,
-    val userID: Long
+    val userID: Long = 0L
 )

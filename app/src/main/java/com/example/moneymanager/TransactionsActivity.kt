@@ -28,11 +28,10 @@ import java.util.Date
 import java.util.Locale
 
 class TransactionsActivity: AppCompatActivity() {
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: TransactionAdapter
-    private lateinit var db: AppDatabase
-
-
+    private val transactionRepo = TransactionRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +39,6 @@ class TransactionsActivity: AppCompatActivity() {
 
         recyclerView = findViewById(R.id.rvTransactions)
         recyclerView.layoutManager = LinearLayoutManager(this)
-
-        db = AppDatabase.getDatabase(this)
 
         loadTransactionData()
 
@@ -144,7 +141,7 @@ class TransactionsActivity: AppCompatActivity() {
     private fun loadTransaction(startDate: String, endDate: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val userId = getUserid()
-            val transactions = db.transactionDao().getTransactionsByDate(userId, startDate, endDate)
+            val transactions = transactionRepo.getAllTransactionsByUser(userId)
 
             withContext(Dispatchers.Main) {
                 adapter = TransactionAdapter(this@TransactionsActivity, transactions)
@@ -161,14 +158,13 @@ class TransactionsActivity: AppCompatActivity() {
 
     override fun onResume(){
         super.onResume()
-
         loadTransactionData()
     }
     //Refreshing the page with all the transactions
     private fun loadTransactionData(){
         CoroutineScope(Dispatchers.IO).launch {
             val userId = getUserid()
-            val transactions = db.transactionDao().getAllTransactionsByUser(userId)
+            val transactions = transactionRepo.getAllTransactionsByUser(userId)
 
             withContext(Dispatchers.Main){
                 if (::adapter.isInitialized){
@@ -182,6 +178,18 @@ class TransactionsActivity: AppCompatActivity() {
             }
         }
     }
+    private fun loadFilteredTransactions(startDate: String, endDate: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val userId = getUserid()
+            val filteredTransactions = transactionRepo.getTransactionsByDate(userId, startDate, endDate)
+
+            withContext(Dispatchers.Main) {
+                adapter = TransactionAdapter(this@TransactionsActivity, filteredTransactions)
+                recyclerView.adapter = adapter
+            }
+        }
+    }
+
 }
 
 // ============================== End of file ==============================

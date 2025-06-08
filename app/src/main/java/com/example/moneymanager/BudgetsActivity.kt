@@ -25,20 +25,22 @@ class BudgetsActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: BudgetAdapter
-    private lateinit var db: AppDatabase
+    private val budgetRepository = BudgetRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.budgets_page)
+
         //Using recyclerViews to display the budgets
         recyclerView = findViewById(R.id.budgetRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        db = AppDatabase.getDatabase(this)
         //Method to retrieve budgets
         loadBudgetData()
+
         //AddBudget button functionality
         val btnAddBudget = findViewById<View>(R.id.fabAddBudget)
+
         btnAddBudget.setOnClickListener {
             val intent = Intent(this, AddBudgetActivity::class.java)
             startActivity(intent)
@@ -94,7 +96,7 @@ class BudgetsActivity : AppCompatActivity() {
             }
     }}
 
-    private fun getUserid(): Long{
+    private fun getUserid(): Long {
         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
         return sharedPref.getLong("USER_ID", -1L)
     }
@@ -108,19 +110,16 @@ class BudgetsActivity : AppCompatActivity() {
     private fun loadBudgetData(){
         CoroutineScope(Dispatchers.IO).launch {
             val userId = getUserid()
-            val budgets = db.budgetDao().getAllBudgetsByUser(userId)
-            val transactions = db.transactionDao().getAllTransactionsByUser(userId)
 
-            withContext(Dispatchers.Main){
-                if (::adapter.isInitialized){
-                    adapter = BudgetAdapter(this@BudgetsActivity, budgets, transactions)
-                    recyclerView.adapter = adapter
-                }else {
-                    adapter = BudgetAdapter(this@BudgetsActivity, budgets, transactions)
-                    recyclerView.adapter = adapter
-                }
+            val budgets = budgetRepository.getAllBudgetsByUser(userId)
+            val transactionRepo = TransactionRepository()
+            val transactions = transactionRepo.getAllTransactionsByUser(userId)
 
+            withContext(Dispatchers.Main) {
+                adapter = BudgetAdapter(this@BudgetsActivity, budgets, transactions)
+                recyclerView.adapter = adapter
             }
+
         }
     }
 }

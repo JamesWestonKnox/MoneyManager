@@ -38,20 +38,19 @@ class HomeActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         CoroutineScope(Dispatchers.IO).launch {
-            val db = AppDatabase.getDatabase(applicationContext)
-            val user = db.userDao().getUserById(userId)
+            val user = "";
 
             user?.let {
-                val welcomeText = "Welcome ${user.firstName}"
+                val welcomeText = "Welcome ${user}"
 
                 withContext(Dispatchers.Main) {
                     welcomeMessage.text = welcomeText
                 }
             }
             //Retrieving goals from the database
-            val goals = db.goalDao().getAllGoalsByUser(userId)
+           // val goals = db.goalDao().getAllGoalsByUser(userId)
             withContext(Dispatchers.Main) {
-                goalList.addAll(goals)
+                //goalList.addAll(goals)
                 adapter.notifyDataSetChanged()
             }
         }

@@ -18,6 +18,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.FirebaseApp
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -27,10 +28,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var registerButton: Button
     private lateinit var loginButton: Button
 
-    private lateinit var userDao: UserDao
+    private val userRepository = UserRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this)
         setContentView(R.layout.activity_main)
 
         emailEditText = findViewById(R.id.etEmail)
@@ -38,7 +40,6 @@ class MainActivity : AppCompatActivity() {
         registerButton = findViewById(R.id.btnRegister)
         loginButton = findViewById(R.id.btnLogin)
 
-        userDao = AppDatabase.getDatabase(this).userDao()
 
         //button functionality that takes the user to another page to create an account
         registerButton.setOnClickListener {
@@ -65,23 +66,32 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 lifecycleScope.launch {
-                    val existingUser = userDao.getUserByEmail(email)
+                    val existingUser = userRepository.getUserByEmail(email)
                     if (existingUser != null) {
                         showToast("User already exists with this email")
                     } else {
                         val newUser = User(
+                            id = System.currentTimeMillis(),
                             firstName = firstName,
                             surname = surname,
                             email = email,
                             password = password
                         )
-                        userDao.insertUser(newUser)
-                        showToast("Registration successful! Please log in.")
-                        bottomSheetDialog.dismiss()
+                        val success = userRepository.insertUser(newUser)
+                        if (success) {
+                            runOnUiThread {
+                                showToast("Registration successful!")
+                                bottomSheetDialog.dismiss()
+                            }
+                        } else {
+                                showToast("Registration failed. Try again.")
+                        }
+
                     }
                 }
             }
         }
+
         //Method allows user to login with their email and password
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()
@@ -89,11 +99,10 @@ class MainActivity : AppCompatActivity() {
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 lifecycleScope.launch {
-                    val existingUser = userDao.getUserByEmail(email)
+                    val existingUser = userRepository.getUserByEmail(email)
                     if (existingUser != null && existingUser.password == password) {
                         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
                         with(sharedPref.edit()) {
-
                             putLong("USER_ID", existingUser.id)
                             apply()
                         }

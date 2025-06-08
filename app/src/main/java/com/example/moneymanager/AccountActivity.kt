@@ -22,15 +22,14 @@ import kotlinx.coroutines.launch
 
 class AccountActivity : AppCompatActivity(){
 
-    private lateinit var userDao: UserDao
+    private lateinit var userRepository: UserRepository
 
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_page)
 
-        //Creating instance of database to use
-        userDao = AppDatabase.getDatabase(applicationContext).userDao()
+
 
         val nameInput = findViewById<EditText>(R.id.txtInputName)
         val surnameInput = findViewById<EditText>(R.id.txtInputSurname)
@@ -39,7 +38,7 @@ class AccountActivity : AppCompatActivity(){
         val userId = getUserid()
 
         lifecycleScope.launch {
-            val user = userDao.getUserById(userId)
+            val user = userRepository.getUserById(userId)
             user?.let {
                 nameInput.setText(it.firstName)
                 surnameInput.setText(it.surname)
@@ -67,7 +66,7 @@ class AccountActivity : AppCompatActivity(){
 
             // Save the updated data to database
             lifecycleScope.launch {
-                userDao.updateUser(
+                userRepository.updateUser(
                     User(
                         id = userId,
                         firstName = updatedName,
