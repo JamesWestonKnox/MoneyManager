@@ -27,6 +27,7 @@ class GoalsActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var goalAdapter: GoalAdapter
     private val goalList = mutableListOf<Goal>()
+    private val goalRepository = GoalRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +38,13 @@ class GoalsActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = goalAdapter
 
-        //val dbGoal = AppDatabase.getDatabase(this)
         lifecycleScope.launch {
-            //val existingGoals = dbGoal.goalDao().getAllGoalsByUser(getUserid())
-            //goalList.addAll(existingGoals)
+            val existingGoals = goalRepository.getAllGoalsByUser(getUserid())
+            goalList.clear()
+            goalList.addAll(existingGoals)
             goalAdapter.notifyDataSetChanged()
         }
+
         //AddGoal functionality
         val btnAddGoal = findViewById<Button>(R.id.btnNewGoal)
         btnAddGoal.setOnClickListener {
@@ -66,22 +68,33 @@ class GoalsActivity : AppCompatActivity() {
                 val newGoal = Goal(
                     goalName = goalName,
                     amount = amount,
-                    userID = getUserid()
+                    userID = getUserid().toDouble()
                 )
                 lifecycleScope.launch {
-                   // dbGoal.goalDao().insertGoal(newGoal)
-                   // val updatedGoals = dbGoal.goalDao().getAllGoalsByUser(getUserid())
-                    runOnUiThread {
-                        goalList.clear()
-                       // goalList.addAll(updatedGoals)
-                        goalAdapter.notifyDataSetChanged()
+                    val success = goalRepository.insertGoal(newGoal)
+                    if (success) {
+                        val updatedGoals = goalRepository.getAllGoalsByUser(getUserid())
+                        runOnUiThread {
+                            goalList.clear()
+                            goalList.addAll(updatedGoals)
+                            goalAdapter.notifyDataSetChanged()
 
-                        Toast.makeText(
-                            this@GoalsActivity,
-                            "Goal saved successfully",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        bottomSheetDialog.dismiss() }
+                            Toast.makeText(
+                                this@GoalsActivity,
+                                "Goal saved successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            bottomSheetDialog.dismiss()
+                        }
+                    } else {
+                        runOnUiThread {
+                            Toast.makeText(
+                                this@GoalsActivity,
+                                "Failed to save goal",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
                 }
             }
         }

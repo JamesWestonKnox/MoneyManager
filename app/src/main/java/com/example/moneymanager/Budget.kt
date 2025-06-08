@@ -19,7 +19,7 @@ data class Budget(
     val budgetMaxLimit: Double = 0.0,
     var budgetAmount: Double = 0.0,
 ) {
-    // Computed property, not saved to Firebase but used in code
+
     val budgetRemaining: Double
         get() = budgetMaxLimit - budgetAmount
 }

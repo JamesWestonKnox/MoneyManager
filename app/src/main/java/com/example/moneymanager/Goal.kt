@@ -13,9 +13,9 @@ package com.example.moneymanager
 
 data class Goal(
 
-    var id: Long = 0L,
+    var id: String = "",
     val goalName: String = "",
     val amount: Double = 0.0,
     val totalAmount: Double = 0.0,
-    val userID: Long = 0L
+    val userID: Double = 0.0
 )
