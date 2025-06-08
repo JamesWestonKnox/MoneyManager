@@ -44,11 +44,29 @@ class TransactionRepository {
         return try {
             val snapshot = database.orderByChild("userId").equalTo(userId.toDouble()).get().await()
             snapshot.children.mapNotNull { it.getValue(UserTransaction::class.java) }
-                .filter { it.amount < 0 }
+                .filter { it.type == "Expense" }
                 .sumOf { it.amount }
         } catch (e: Exception) {
             e.printStackTrace()
             0.0
         }
     }
+
+    suspend fun getExpenseTotalsByCategory(userId: Long, startDate: String, endDate: String): Map<String, Double> {
+        return try {
+            val snapshot = database.orderByChild("userId").equalTo(userId.toDouble()).get().await()
+            val transactions = snapshot.children.mapNotNull { it.getValue(UserTransaction::class.java) }
+                .filter { it.date >= startDate && it.date <= endDate && it.type == "Expense" }
+
+            // Group by category and sum absolute amounts
+            transactions.groupBy { it.category }
+                .mapValues { entry -> entry.value.sumOf { kotlin.math.abs(it.amount) } }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emptyMap()
+        }
+    }
+
+
+
 }
