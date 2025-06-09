@@ -16,15 +16,17 @@ Group Members:
 - Track income and expenses
 - Set financial goals
 - Manage budgets
-- View reports
+- View reports screen with graphs detailing performance
 - Simple and clean interface
+- Recurring transactions
+- Gamification with badges
 
 ## Built With
 
 - Kotlin
 - Android Studio
 - XML layouts
-- RoomDB
+- Firebase realtime database
 
 ## Video Demonstration
 

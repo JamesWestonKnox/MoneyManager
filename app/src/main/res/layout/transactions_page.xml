@@ -10,136 +10,118 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_navigation"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
 
+        <!-- Header Section -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="116dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-            <!-- Header Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="116dp"
-                android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="97dp"
+                android:layout_height="91dp"
+                android:adjustViewBounds="false"
+                android:cropToPadding="false"
+                android:src="@drawable/logo"
+                android:contentDescription="Logo" />
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="97dp"
-                    android:layout_height="91dp"
-                    android:layout_gravity="center|start"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:adjustViewBounds="false"
-                    android:cropToPadding="false"
-                    app:srcCompat="@drawable/logo" />
-
-                <TextView
-                    android:id="@+id/tvPageName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_horizontal|center_vertical"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="Transactions"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="#1F4E5F"
-                    android:textSize="36sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="12dp" />
-
-            <!-- Filter Button Section -->
-            <LinearLayout
-                android:id="@+id/filterButton"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:background="@drawable/filter_button"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_filter" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="Filter transactions"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_down" />
-            </LinearLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="12dp" />
-
-            <!-- Card View for Transactions -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvTransactions"
-                android:layout_width="401dp"
-                android:layout_height="534dp"
-                android:layout_gravity="center"
-                app:cardBackgroundColor="#1F4E5F"
-                app:cardCornerRadius="8dp">
-
-                <ScrollView
-                    android:layout_width="390dp"
-                    android:layout_height="497dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvTransactions"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:paddingTop="30dp" />
-                </ScrollView>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Spacer to ensure the layout fits above BottomNavigationView -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+            <TextView
+                android:id="@+id/tvPageName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical" />
-
-            <!-- Add Transaction Button -->
-            <Button
-                android:id="@+id/btnAddTransaction"
-                android:layout_width="wrap_content"
-                android:layout_height="58dp"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginBottom="100dp"
-                android:insetRight="10dp"
-                android:insetBottom="15dp"
-                android:letterSpacing="0.079"
-                android:paddingRight="16dp"
-                android:text="Add Transaction"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="14sp"
-                app:cornerRadius="8dp" />
+                android:fontFamily="@font/roboto"
+                android:text="Transactions"
+                android:gravity="center"
+                android:textColor="#1F4E5F"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:maxLines="1" />
         </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
+
+        <!-- Filter Button Section -->
+        <LinearLayout
+            android:id="@+id/filterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:background="@drawable/filter_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_filter"
+                android:contentDescription="Filter Icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Filter transactions"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_down"
+                android:contentDescription="Arrow Down" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
+
+        <!-- Card View for Transactions -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvTransactions"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#1F4E5F"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            android:padding="10dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTransactions"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="30dp" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Add Transaction Button -->
+        <Button
+            android:id="@+id/btnAddTransaction"
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="16dp"
+            android:insetRight="10dp"
+            android:insetBottom="15dp"
+            android:letterSpacing="0.079"
+            android:paddingRight="16dp"
+            android:text="Add Transaction"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textSize="14sp"
+            app:cornerRadius="8dp" />
     </LinearLayout>
 
     <!-- Bottom Navigation -->

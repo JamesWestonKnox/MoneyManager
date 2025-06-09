@@ -36,7 +36,6 @@ class BudgetAdapter(
         val buttonExpand: Button = view.findViewById(R.id.button)
         val expandedLayout: View = view.findViewById(R.id.expandedLayout)
         val progressBarBig: CircularProgressIndicator = view.findViewById(R.id.progressBarBig)
-        val tvLimitExpanded: TextView = view.findViewById(R.id.tv_limit2)
         val rvTransaction: RecyclerView = view.findViewById(R.id.rvTransact)
         val tvPercentage: TextView = view.findViewById(R.id.tvPercentage)
     }
@@ -50,11 +49,9 @@ class BudgetAdapter(
 
     override fun onBindViewHolder(holder: BudgetViewHolder, position: Int) {
         val budget = budgets[position]
-
         holder.tvLimit.text = budget.name
         holder.tvSpent.text = "Spent: R${budget.budgetAmount}"
         holder.tvRemaining.text = "Remaining: R${budget.budgetMaxLimit - budget.budgetAmount}"
-        holder.tvLimitExpanded.text = "Limit: R${budget.budgetMaxLimit}"
 
         holder.buttonExpand.setOnClickListener {
             if (holder.expandedLayout.isGone) {

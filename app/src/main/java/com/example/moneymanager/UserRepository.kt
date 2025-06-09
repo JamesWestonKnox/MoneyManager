@@ -19,6 +19,7 @@ class UserRepository {
         }
     }
 
+
     suspend fun getUserByEmail(email: String): User? {
         return try {
             val snapshot = database.orderByChild("email").equalTo(email).get().await()

@@ -10,6 +10,7 @@ class TransactionRepository {
 
     private val database: DatabaseReference = FirebaseDatabase.getInstance().getReference("transactions")
 
+    //Inserting transaction into database
     suspend fun insertTransaction(transaction: UserTransaction): Boolean {
         return try {
             database.push().setValue(transaction).await()
@@ -20,6 +21,7 @@ class TransactionRepository {
         }
     }
 
+    //Displaying all transactions to the user
     suspend fun getAllTransactionsByUser(userId: Long): List<UserTransaction> {
         return try {
             val snapshot = database.orderByChild("userId").equalTo(userId.toDouble()).get().await()
@@ -31,6 +33,7 @@ class TransactionRepository {
         }
     }
 
+    //Filtering transactions using 2 dates
     suspend fun getTransactionsByDate(userId: Long, startDate: String, endDate: String): List<UserTransaction> {
         return try {
             val snapshot = database.orderByChild("userId").equalTo(userId.toDouble()).get().await()
@@ -54,6 +57,7 @@ class TransactionRepository {
         }
     }
 
+    //Retrieving the expenses per category and adding them together
     suspend fun getExpenseTotalsByCategory(userId: Long, startDate: String, endDate: String): Map<String, Double> {
         return try {
             val snapshot = database.orderByChild("userId").equalTo(userId.toDouble()).get().await()

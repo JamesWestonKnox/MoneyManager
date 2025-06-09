@@ -29,7 +29,6 @@
         <activity android:name=".BudgetsActivity" />
         <activity android:name=".TransactionsActivity" />
         <activity android:name=".ReportsActivity" />
-        <activity android:name=".AddGoalsActivity"/>
         <activity android:name=".GoalsActivity"/>
 
         <activity

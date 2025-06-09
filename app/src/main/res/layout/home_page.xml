@@ -5,164 +5,157 @@
     android:layout_height="match_parent"
     android:background="#F4F7F7">
 
-    <!-- Scrollable content -->
-    <ScrollView
+    <!-- Header Section (ImageView, TextView, Account Icon) -->
+    <LinearLayout
+        android:id="@+id/header_section"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation"
-        android:fillViewport="true">
+        android:layout_height="116dp"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="10dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="97dp"
+            android:layout_height="91dp"
+            android:adjustViewBounds="false"
+            android:cropToPadding="false"
+            app:srcCompat="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/tvPageName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto"
+            android:text="Home"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#1F4E5F"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="none" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="72dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="20dp"
+            android:background="#F2F5F5"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_account"
+            app:tint="#1F4E5F" />
+    </LinearLayout>
+
+    <!-- Space below header -->
+    <Space
+        android:id="@+id/space_after_header"
+        android:layout_below="@id/header_section"
+        android:layout_width="match_parent"
+        android:layout_height="51dp" />
+
+    <!-- Welcome Card Section -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/welcome_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/space_after_header"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="22dp"
+        app:cardBackgroundColor="#79A8A9"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="32dp"
+        app:contentPadding="24dp"
+        app:contentPaddingTop="17dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="80dp"> <!-- extra space above BottomNav -->
+            android:orientation="vertical">
 
-            <!-- Header Section (ImageView, TextView) -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="116dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="97dp"
-                    android:layout_height="91dp"
-                    android:layout_gravity="center|start"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:adjustViewBounds="false"
-                    android:cropToPadding="false"
-                    app:srcCompat="@drawable/logo" />
-
-                <TextView
-                    android:id="@+id/tvPageName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_horizontal|center_vertical"
-                    android:layout_marginLeft="55dp"
-                    android:layout_marginTop="15dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="Home"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="#1F4E5F"
-                    android:textSize="36sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="72dp"
-                    android:layout_height="66dp"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:background="#F2F5F5"
-                    android:clickable="true"
-                    app:srcCompat="@drawable/ic_account"
-                    app:tint="#1F4E5F" />
-            </LinearLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="51dp" />
-
-            <!-- Welcome Card Section -->
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                app:cardBackgroundColor="#79A8A9"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="32dp"
-                app:contentPadding="24dp"
-                app:contentPaddingTop="17dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        app:cardBackgroundColor="#1F4E5F"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="2dp"
-                        app:contentPadding="5dp">
-
-                        <TextView
-                            android:id="@+id/tvWelcomeMessage"
-                            android:layout_width="272dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal|center_vertical"
-                            android:fontFamily="@font/roboto"
-                            android:text="Welcome"
-                            android:textAlignment="center"
-                            android:textColor="#F4F7F7"
-                            android:textSize="20dp" />
-                    </androidx.cardview.widget.CardView>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="22dp" />
-
-            <!-- Goal Card and RecyclerView Section -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="406dp"
-                android:layout_height="333dp"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
-                app:cardBackgroundColor="#79A8A9"
-                app:cardCornerRadius="8dp"
-                app:contentPaddingBottom="15dp"
-                app:contentPaddingLeft="15dp"
-                app:contentPaddingRight="15dp"
-                app:contentPaddingTop="25dp">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_goalHome"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-            </androidx.cardview.widget.CardView>
-
-            <!-- 'Your Goals' Card Section -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="187dp"
-                android:layout_height="39dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="-362dp"
                 app:cardBackgroundColor="#1F4E5F"
                 app:cardCornerRadius="8dp"
-                app:cardPreventCornerOverlap="false">
+                app:cardElevation="2dp"
+                app:contentPadding="5dp">
 
                 <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvWelcomeMessage"
+                    android:layout_width="272dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="6dp"
-                    android:text="Your Saving Goals"
-                    android:textColor="#FDFCFC"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:fontFamily="@font/roboto"
+                    android:text="Welcome"
+                    android:textAlignment="center"
+                    android:textColor="#F4F7F7"
                     android:textSize="20sp" />
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
-    </ScrollView>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- 'Your Saving Goals' Card Section -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/goals_title_card"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:layout_below="@id/welcome_card"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:cardBackgroundColor="#1F4E5F"
+        app:cardCornerRadius="8dp"
+        app:cardPreventCornerOverlap="false">
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="6dp"
+            android:text="Your Saving Goals"
+            android:textColor="#FDFCFC"
+            android:textSize="20sp" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- RecyclerView for Goals -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/goal_recycler_card"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/goals_title_card"
+        android:layout_above="@id/bottom_navigation"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:cardBackgroundColor="#79A8A9"
+        app:cardCornerRadius="8dp"
+        app:contentPaddingLeft="15dp"
+        app:contentPaddingRight="15dp"
+        app:contentPaddingTop="25dp"
+        app:contentPaddingBottom="15dp"
+        app:cardElevation="8dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_goalHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.cardview.widget.CardView>
 
     <!-- Bottom Navigation Section -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:background="#1F4E5F"
         app:itemIconTint="@color/selector_nav_item_color"
         app:itemTextColor="@color/selector_nav_item_color"

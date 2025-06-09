@@ -107,7 +107,6 @@ class TransactionsActivity: AppCompatActivity() {
 
         btnFilter.setOnClickListener{
 
-
             val datePicker = MaterialDatePicker.Builder.dateRangePicker()
                 .setTitleText("Select Date Range")
                 .build()

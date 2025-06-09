@@ -38,26 +38,6 @@ class GoalRepository {
         }
     }
 
-    suspend fun getGoalByIdandUserId(goalID: String, userID: Long): Goal? {
-        return try {
-            val snapshot = database.child(goalID).get().await()
-            if (snapshot.exists()) {
-                val goal = snapshot.getValue(Goal::class.java)
-
-                if (goal != null && goal.userID == userID.toDouble()) {
-                    goal
-                } else {
-                    null
-                }
-            } else {
-                null
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
-        }
-    }
-
     suspend fun updateGoal(goal: Goal): Boolean {
         return try {
             if (goal.id.isNotBlank()) {
@@ -72,17 +52,5 @@ class GoalRepository {
         }
     }
 
-    suspend fun deleteGoal(goal: Goal): Boolean {
-        return try {
-            if (goal.id.isNotBlank()) {
-                database.child(goal.id).removeValue().await()
-                true
-            } else {
-                false
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            false
-        }
-    }
+
 }
