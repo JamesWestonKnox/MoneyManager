@@ -29,8 +29,6 @@ class AccountActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_page)
 
-
-
         val nameInput = findViewById<EditText>(R.id.txtInputName)
         val surnameInput = findViewById<EditText>(R.id.txtInputSurname)
         val emailInput = findViewById<EditText>(R.id.txtInputEmail)

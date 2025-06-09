@@ -46,9 +46,6 @@ class HomeActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.isNestedScrollingEnabled = false
 
-
-
-
         lifecycleScope.launch {
             val user = userRepository.getUserById(userId)
             val firstName = user?.firstName ?: "User"
@@ -65,8 +62,6 @@ class HomeActivity : AppCompatActivity() {
             adapter = GoalHomeAdapter(goalList)
             recyclerView.adapter = adapter
         }
-
-
 
 
         //Allowing user to navigate to the account page

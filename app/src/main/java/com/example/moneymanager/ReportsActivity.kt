@@ -157,7 +157,6 @@ class ReportsActivity: AppCompatActivity() {
                 calendar.add(Calendar.MONTH, -2)
                 calendar.set(Calendar.DAY_OF_MONTH, 1)
                 val start = dateFormat.format(calendar.time)
-
                 calendar.add(Calendar.MONTH, 2)
                 calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH))
                 val end = dateFormat.format(calendar.time)
@@ -167,6 +166,7 @@ class ReportsActivity: AppCompatActivity() {
             else -> getDateRangeForBarChart("This Month")
         }
     }
+
     fun getCurrentMonthDateRange(): Pair<String, String>{
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.DAY_OF_MONTH, 1)
@@ -232,10 +232,6 @@ class ReportsActivity: AppCompatActivity() {
         }
     }
 
-
-
-
-
     private fun getUserid(): Long{
         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
         return sharedPref.getLong("USER_ID", -1L)
@@ -281,7 +277,7 @@ class ReportsActivity: AppCompatActivity() {
             position = com.github.mikephil.charting.components.XAxis.XAxisPosition.BOTTOM
             setCenterAxisLabels(true)
             textSize = 14f
-            labelRotationAngle = -15f // Rotate slightly to avoid overlap
+            labelRotationAngle = -15f
         }
 
         val groupSpace = 0.2f

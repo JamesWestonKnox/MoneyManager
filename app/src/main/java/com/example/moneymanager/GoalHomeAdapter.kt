@@ -38,9 +38,9 @@ class GoalHomeAdapter(private val goalList: List<Goal>) :
         holder.tvGoalPercentage.visibility = View.VISIBLE
         holder.ivBadge.visibility = View.VISIBLE
         if (progress >= 100) {
-            holder.ivBadge.setImageResource(R.drawable.target_goal)  // sets the 'completed' badge
+            holder.ivBadge.setImageResource(R.drawable.target_goal)
         } else {
-            holder.ivBadge.setImageResource(R.drawable.grey_target)  // sets the 'incomplete' badge
+            holder.ivBadge.setImageResource(R.drawable.grey_target)
         }
 
 
