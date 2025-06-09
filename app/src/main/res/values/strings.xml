@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">MoneyManager</string>
     <string name="account_icon_desc">Account icon</string>
-
+    <string-array name="time_period_options">
+        <item>This Month</item>
+        <item>Last Month</item>
+        <item>Last 3 Months</item>
+    </string-array>
 </resources>

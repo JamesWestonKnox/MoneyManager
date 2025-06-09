@@ -2,7 +2,9 @@ package com.example.moneymanager
 
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.DatabaseReference
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class TransactionRepository {
 
@@ -58,7 +60,6 @@ class TransactionRepository {
             val transactions = snapshot.children.mapNotNull { it.getValue(UserTransaction::class.java) }
                 .filter { it.date >= startDate && it.date <= endDate && it.type == "Expense" }
 
-            // Group by category and sum absolute amounts
             transactions.groupBy { it.category }
                 .mapValues { entry -> entry.value.sumOf { kotlin.math.abs(it.amount) } }
         } catch (e: Exception) {
@@ -66,6 +67,8 @@ class TransactionRepository {
             emptyMap()
         }
     }
+
+
 
 
 

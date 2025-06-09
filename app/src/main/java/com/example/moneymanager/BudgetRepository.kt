@@ -39,4 +39,15 @@ class BudgetRepository {
         }
     }
 
+    suspend fun getBudgetMaxByCategory(userId: Long): Map<String, Double> {
+        return try {
+            val snapshot = database.orderByChild("userID").equalTo(userId.toDouble()).get().await()
+            val budgets = snapshot.children.mapNotNull { it.getValue(Budget::class.java) }
+            budgets.associateBy({ it.name }, { it.budgetMaxLimit })
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emptyMap()
+        }
+    }
+
 }
