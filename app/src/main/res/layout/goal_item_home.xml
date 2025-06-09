@@ -60,31 +60,7 @@
             android:textColor="#FFFFFF"
             android:textSize="14sp" />
 
-        <!-- Goal complete message and badge -->
-        <LinearLayout
-            android:id="@+id/llGoalCompleted"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="8dp"
-            android:visibility="gone">
 
-            <TextView
-                android:id="@+id/tvGoalCompleteMsg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Goal 100% completed. You earned this badge!"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
-
-            <ImageView
-                android:id="@+id/ivBadgeCompleted"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/target_goal" />
-        </LinearLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
