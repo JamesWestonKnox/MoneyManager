@@ -9,9 +9,11 @@
 
 package com.example.moneymanager
 
+// Achievement.kt
 data class Achievement(
     val id: String,
     val title: String,
     val description: String,
-    val isUnlocked: Boolean
+    val isUnlocked: Boolean = false,
+    val dateUnlocked: Long? = null
 )

@@ -12,6 +12,7 @@ constraintlayout = "2.2.0"
 room ="2.5.0"
 googleGmsGoogleServices = "4.4.2"
 firebaseDatabase = "21.0.0"
+gson = "2.10.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -26,6 +27,7 @@ androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "
 androidx-room-ktx     = { module = "androidx.room:room-ktx",     version.ref = "room" }
 androidx-room-compiler= { module = "androidx.room:room-compiler",version.ref = "room" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
