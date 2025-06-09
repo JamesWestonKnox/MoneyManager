@@ -106,12 +106,10 @@ class TransactionsActivity: AppCompatActivity() {
         val btnFilter = findViewById<View>(R.id.filterButton)
 
         btnFilter.setOnClickListener{
-            val calenderConstraints = CalendarConstraints.Builder()
-                .setValidator(DateValidatorPointForward.from(System.currentTimeMillis()))
-                .build()
+
 
             val datePicker = MaterialDatePicker.Builder.dateRangePicker()
-                .setCalendarConstraints(calenderConstraints)
+                .setTitleText("Select Date Range")
                 .build()
 
             datePicker.show(supportFragmentManager, datePicker.toString())
@@ -123,7 +121,7 @@ class TransactionsActivity: AppCompatActivity() {
                 val startDateString = formatDate(startDate)
                 val endDateString = formatDate(endDate)
 
-                loadTransaction(startDateString, endDateString)
+                loadFilteredTransactions(startDateString, endDateString)
 
             }
         }
