@@ -1,6 +1,7 @@
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -14,9 +15,7 @@ class GoalHomeAdapter(private val goalList: List<Goal>) :
         val tvGoalName: TextView = itemView.findViewById(R.id.tvGoalName)
         val pbGoalProgress: ProgressBar = itemView.findViewById(R.id.pbGoalProgress)
         val tvGoalPercentage: TextView = itemView.findViewById(R.id.tvGoalPercentage)
-        val imgBadge : View = itemView.findViewById(R.id.ivBadge)
-        val tvGoalCompleted: TextView = itemView.findViewById(R.id.tvGoalCompleteMsg)
-        val layoutGoalCompleted: View = itemView.findViewById(R.id.llGoalCompleted)
+        val ivBadge : ImageView = itemView.findViewById(R.id.ivBadge)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoalViewHolder {
@@ -36,14 +35,12 @@ class GoalHomeAdapter(private val goalList: List<Goal>) :
         holder.pbGoalProgress.progress = progress
         holder.tvGoalPercentage.text = "Goal Progress: $progress%"
 
+        holder.tvGoalPercentage.visibility = View.VISIBLE
+        holder.ivBadge.visibility = View.VISIBLE
         if (progress >= 100) {
-            holder.imgBadge.visibility = View.GONE
-            holder.tvGoalPercentage.visibility = View.GONE
-            holder.layoutGoalCompleted.visibility = View.VISIBLE
+            holder.ivBadge.setImageResource(R.drawable.target_goal)  // sets the 'completed' badge
         } else {
-            holder.imgBadge.visibility = View.VISIBLE
-            holder.tvGoalPercentage.visibility = View.VISIBLE
-            holder.layoutGoalCompleted.visibility = View.GONE
+            holder.ivBadge.setImageResource(R.drawable.grey_target)  // sets the 'incomplete' badge
         }
 
 

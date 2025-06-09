@@ -52,7 +52,7 @@ class ReportsActivity: AppCompatActivity() {
                 PieEntry(total.toFloat(), category)
             }
             withContext(Dispatchers.Main) {
-                setupPieChart(pieEntries, "Expenses\nLast 30 Days")
+                setupPieChart(pieEntries, "")
             }
         }
 
@@ -179,49 +179,59 @@ class ReportsActivity: AppCompatActivity() {
     }
 
     private fun setupPieChart(entries: List<PieEntry>, centerText: String) {
-        val dataSet = PieDataSet(entries, "")
-        dataSet.colors = ColorTemplate.MATERIAL_COLORS.toList()
-        dataSet.valueTextSize = 12f
-        dataSet.valueTextColor = Color.BLACK
-        dataSet.valueFormatter = object : ValueFormatter() {
-            override fun getPieLabel(value: Float, pieEntry: PieEntry?): String {
-                return value.toInt().toString()
+        val dataSet = PieDataSet(entries, "").apply {
+            colors = ColorTemplate.MATERIAL_COLORS.toList()
+            valueTextSize = 14f
+            valueTextColor = Color.BLACK
+            setDrawValues(true)
+            sliceSpace = 1f
+            xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+            yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+            valueLinePart1Length = 0.4f
+            valueLinePart2Length = 0.2f
+            valueLineColor = Color.BLACK
+            valueFormatter = object : ValueFormatter() {
+                override fun getPieLabel(value: Float, pieEntry: PieEntry?): String {
+                    return pieEntry?.label ?: ""
+                }
             }
         }
-        dataSet.setDrawValues(true)
 
         val data = PieData(dataSet)
 
         val pieChart = findViewById<PieChart>(R.id.pieChart)
-        pieChart.data = data
-        pieChart.description.isEnabled = false
-        pieChart.isRotationEnabled = true
-        pieChart.setUsePercentValues(false)
-        pieChart.setEntryLabelTextSize(0f)
-        pieChart.setDrawEntryLabels(false)
+        pieChart.apply {
+            this.data = data
+            description.isEnabled = false
+            isRotationEnabled = true
+            setUsePercentValues(false)
+            setEntryLabelTextSize(14f)
+            setDrawEntryLabels(false)
 
-        val legend = pieChart.legend
-        legend.isWordWrapEnabled = true
-        legend.textSize = 12f
-        legend.xEntrySpace = 8f
-        legend.yEntrySpace = 4f
-        legend.formSize = 12f
-        legend.formToTextSpace = 6f
-        legend.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
-        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
-        legend.orientation = Legend.LegendOrientation.HORIZONTAL
-        legend.setDrawInside(false)
+            pieChart.setDrawEntryLabels(false)
+            pieChart.setExtraOffsets(15f, 20f, 15f, 40f)
+            pieChart.setCenterText(centerText)
+            pieChart.setCenterTextSize(16f)
+            pieChart.setCenterTextTypeface(Typeface.DEFAULT_BOLD)
 
-        pieChart.setExtraOffsets(10f, 10f, 10f, 20f)
+            legend.apply {
+                isWordWrapEnabled = true
+                textSize = 14f
+                xEntrySpace = 12f
+                yEntrySpace = 6f
+                formSize = 14f
+                formToTextSpace = 8f
+                verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
+                horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+                orientation = Legend.LegendOrientation.HORIZONTAL
+                setDrawInside(false)
+            }
 
-        pieChart.centerText = centerText
-        pieChart.setCenterTextSize(12f)
-        pieChart.setCenterTextColor(Color.BLACK)
-        pieChart.setCenterTextTypeface(Typeface.DEFAULT_BOLD)
-
-        pieChart.animateY(1000)
-        pieChart.invalidate()
+            animateY(1000)
+            invalidate()
+        }
     }
+
 
 
 
@@ -246,51 +256,66 @@ class ReportsActivity: AppCompatActivity() {
             goalEntries.add(BarEntry(index.toFloat(), max.toFloat()))
         }
 
-        val spentDataSet = BarDataSet(spentEntries, "Amount Spent")
-        spentDataSet.color = Color.parseColor("#4CAF50")
+        val spentDataSet = BarDataSet(spentEntries, "Amount Spent").apply {
+            color = Color.parseColor("#4CAF50")
+            valueTextSize = 14f
+        }
 
-        val goalDataSet = BarDataSet(goalEntries, "Max Limit")
-        goalDataSet.color = Color.parseColor("#FF9800")
+        val goalDataSet = BarDataSet(goalEntries, "Max Limit").apply {
+            color = Color.parseColor("#FF9800")
+            valueTextSize = 14f
+        }
 
-        val data = BarData(spentDataSet, goalDataSet)
-        data.barWidth = 0.4f
+        val data = BarData(spentDataSet, goalDataSet).apply {
+            barWidth = 0.38f
+        }
 
         barChart.data = data
 
-
         val xAxis = barChart.xAxis
-        xAxis.valueFormatter = IndexAxisValueFormatter(categories)
-        xAxis.granularity = 1f
-        xAxis.isGranularityEnabled = true
-        xAxis.setDrawGridLines(false)
-        xAxis.position = com.github.mikephil.charting.components.XAxis.XAxisPosition.BOTTOM
+        xAxis.apply {
+            valueFormatter = IndexAxisValueFormatter(categories)
+            granularity = 1f
+            isGranularityEnabled = true
+            setDrawGridLines(false)
+            position = com.github.mikephil.charting.components.XAxis.XAxisPosition.BOTTOM
+            setCenterAxisLabels(true)
+            textSize = 14f
+            labelRotationAngle = -15f // Rotate slightly to avoid overlap
+        }
 
-
-        xAxis.axisMinimum = 0f
-        val groupCount = categories.size
         val groupSpace = 0.2f
         val barSpace = 0.02f
-        xAxis.setCenterAxisLabels(true)
+        val groupCount = categories.size
 
-        data.barWidth = 0.38f
-
+        xAxis.axisMinimum = 0f
         xAxis.axisMaximum = 0f + barChart.barData.getGroupWidth(groupSpace, barSpace) * groupCount
 
-        barChart.axisLeft.axisMinimum = 0f
-        barChart.axisRight.isEnabled = false
+        barChart.axisLeft.apply {
+            axisMinimum = 0f
+            textSize = 14f
+        }
 
+        barChart.axisRight.isEnabled = false
         barChart.description.isEnabled = false
 
-        barChart.setExtraOffsets(10f, 10f, 15f, 10f)
-
+        barChart.setExtraOffsets(10f, 10f, 10f, 30f) // More bottom space for the legend
         barChart.setFitBars(true)
-
         barChart.groupBars(0f, groupSpace, barSpace)
 
-        barChart.legend.isWordWrapEnabled = true
+        barChart.legend.apply {
+            verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
+            horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+            orientation = Legend.LegendOrientation.HORIZONTAL
+            setDrawInside(false)
+            yEntrySpace = 20f
+            xEntrySpace = 30f
+            textSize = 14f
+        }
 
         barChart.invalidate()
     }
+
 
 }
 
