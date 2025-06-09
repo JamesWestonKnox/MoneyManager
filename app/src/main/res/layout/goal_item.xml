@@ -56,7 +56,7 @@
                     android:id="@+id/textView14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Amount needed:"
+                    android:text="Goal Amount: R "
                     android:textColor="#FDFDFD"
                     android:textSize="20sp" />
 
@@ -64,7 +64,7 @@
                     android:id="@+id/tvGoalDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="R1000"
+                    android:text="0"
                     android:textColor="#FFFFFF"
                     android:textSize="20sp" />
 
@@ -81,19 +81,33 @@
                     android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Amount saved:"
+                    android:text="Total saved: R "
                     android:textColor="#FFFFFF"
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/textView15"
+                    android:id="@+id/tvTotalSaved"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="R500"
+                    android:text="0"
                     android:textColor="#FFFFFF"
                     android:textSize="20sp" />
 
             </LinearLayout>
+
+            <EditText
+                android:id="@+id/etAddAmount"
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="#FFFEFE"
+                android:backgroundTint="#FDFBFB"
+                android:ems="10"
+                android:gravity="center_horizontal|center_vertical"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:textColorLink="#090000"
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/btnAddToGoal"

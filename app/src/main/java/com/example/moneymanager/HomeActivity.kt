@@ -34,7 +34,7 @@ class HomeActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.rv_goalHome)
         recyclerView.layoutManager = LinearLayoutManager(this)
         val goalList = mutableListOf<Goal>()
-        val adapter = GoalAdapter(goalList)
+        val adapter = GoalAdapter(goalList) { _, _, _ -> }
         recyclerView.adapter = adapter
 
         CoroutineScope(Dispatchers.IO).launch {

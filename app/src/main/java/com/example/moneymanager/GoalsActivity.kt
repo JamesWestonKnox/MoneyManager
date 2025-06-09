@@ -32,9 +32,14 @@ class GoalsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.goals_page)
+
         //Using a recyclerView to display all the goals to the user
         recyclerView = findViewById(R.id.rvGoals)
-        goalAdapter = GoalAdapter(goalList)
+
+        goalAdapter = GoalAdapter(goalList) { goal, position, amountToAdd ->
+            handleAddToGoal(goal, position, amountToAdd)
+        }
+
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = goalAdapter
 
@@ -140,6 +145,51 @@ class GoalsActivity : AppCompatActivity() {
 
 
     }
+
+    private fun handleAddToGoal(goal: Goal, position: Int, amountToAdd: Double?){
+        if (amountToAdd == null || amountToAdd <= 0){
+            Toast.makeText(this, "Please enter a valid amount", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val newTotalAmount = goal.totalAmount + amountToAdd
+
+        if (newTotalAmount > goal.amount) {
+            Toast.makeText(
+                this,
+                "Amount exceeds goal target. Maximum you can add: R${String.format("%.2f", goal.amount - goal.totalAmount)}",
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
+
+        val updatedGoal = goal.copy(totalAmount = newTotalAmount)
+
+        lifecycleScope.launch {
+            val success = goalRepository.updateGoal(updatedGoal)
+            runOnUiThread {
+                if (success) {
+                    goalAdapter.updateGoal(position, updatedGoal)
+
+                    // Show success message
+                    val message = if (newTotalAmount >= goal.amount) {
+                        "Congratulations! You've reached your goal!"
+                    } else {
+                        "Amount added successfully!"
+                    }
+
+                    Toast.makeText(this@GoalsActivity, message, Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(
+                        this@GoalsActivity,
+                        "Failed to update goal",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
     private fun getUserid(): Long {
         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
         return sharedPref.getLong("USER_ID", -1L)
