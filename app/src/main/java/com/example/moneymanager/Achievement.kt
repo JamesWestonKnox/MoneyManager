@@ -17,3 +17,5 @@ data class Achievement(
     val isUnlocked: Boolean = false,
     val dateUnlocked: Long? = null
 )
+
+// ============================== End of file ==============================
