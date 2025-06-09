@@ -14,6 +14,9 @@ class GoalHomeAdapter(private val goalList: List<Goal>) :
         val tvGoalName: TextView = itemView.findViewById(R.id.tvGoalName)
         val pbGoalProgress: ProgressBar = itemView.findViewById(R.id.pbGoalProgress)
         val tvGoalPercentage: TextView = itemView.findViewById(R.id.tvGoalPercentage)
+        val imgBadge : View = itemView.findViewById(R.id.ivBadge)
+        val tvGoalCompleted: TextView = itemView.findViewById(R.id.tvGoalCompleteMsg)
+        val layoutGoalCompleted: View = itemView.findViewById(R.id.llGoalCompleted)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoalViewHolder {
@@ -29,8 +32,21 @@ class GoalHomeAdapter(private val goalList: List<Goal>) :
         val progress = if (goal.amount != 0.0) {
             ((goal.totalAmount / goal.amount) * 100).toInt()
         } else 0
+
         holder.pbGoalProgress.progress = progress
         holder.tvGoalPercentage.text = "Goal Progress: $progress%"
+
+        if (progress >= 100) {
+            holder.imgBadge.visibility = View.GONE
+            holder.tvGoalPercentage.visibility = View.GONE
+            holder.layoutGoalCompleted.visibility = View.VISIBLE
+        } else {
+            holder.imgBadge.visibility = View.VISIBLE
+            holder.tvGoalPercentage.visibility = View.VISIBLE
+            holder.layoutGoalCompleted.visibility = View.GONE
+        }
+
+
     }
 
     override fun getItemCount() = goalList.size

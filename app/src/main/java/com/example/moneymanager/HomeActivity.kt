@@ -23,9 +23,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var goalRepository: GoalRepository
+    private lateinit var userRepository: UserRepository
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: GoalHomeAdapter
 
@@ -38,6 +41,7 @@ class HomeActivity : AppCompatActivity() {
         val userId = getUserid()
 
         goalRepository = GoalRepository()
+        userRepository = UserRepository()
         recyclerView = findViewById(R.id.rv_goalHome)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.isNestedScrollingEnabled = false
@@ -46,6 +50,17 @@ class HomeActivity : AppCompatActivity() {
 
 
         lifecycleScope.launch {
+            val user = userRepository.getUserById(userId)
+            val firstName = user?.firstName ?: "User"
+
+            val dateFormat = SimpleDateFormat("EEEE, d MMMM", Locale.getDefault())
+            val currentDate = dateFormat.format(Date())
+
+            val welcomeText = "$currentDate\nWelcome $firstName"
+            withContext(Dispatchers.Main) {
+                welcomeMessage.text = welcomeText
+            }
+
             val goalList = goalRepository.getAllGoalsByUser(userId)
             adapter = GoalHomeAdapter(goalList)
             recyclerView.adapter = adapter
