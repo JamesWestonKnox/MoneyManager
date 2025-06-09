@@ -50,7 +50,6 @@ class BudgetAdapter(
 
     override fun onBindViewHolder(holder: BudgetViewHolder, position: Int) {
         val budget = budgets[position]
-
         holder.tvLimit.text = budget.name
         holder.tvSpent.text = "Spent: R${budget.budgetAmount}"
         holder.tvRemaining.text = "Remaining: R${budget.budgetMaxLimit - budget.budgetAmount}"

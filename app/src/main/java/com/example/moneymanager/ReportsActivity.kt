@@ -56,6 +56,7 @@ class ReportsActivity: AppCompatActivity() {
             }
         }
 
+        //Spinner for selectable period on bar graph
         val spinner = findViewById<Spinner>(R.id.spinner_time_period)
         spinner.setSelection(0)
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -66,12 +67,9 @@ class ReportsActivity: AppCompatActivity() {
                     val transactionRepo = TransactionRepository()
                     val budgetRepo = BudgetRepository()
                     val userId = getUserid()
-
                     val expenseTotals = transactionRepo.getExpenseTotalsByCategory(userId, startDate, endDate)
                     val budgetMax = budgetRepo.getBudgetMaxByCategory(userId)
-
                         setupBarChart(expenseTotals, budgetMax)
-
                 }
             }
 
@@ -131,6 +129,7 @@ class ReportsActivity: AppCompatActivity() {
         }
 
     }
+    //Giving set date range for the bar graph
     private fun getDateRangeForBarChart(option: String): Pair<String, String> {
         val calendar = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -167,6 +166,7 @@ class ReportsActivity: AppCompatActivity() {
         }
     }
 
+
     fun getCurrentMonthDateRange(): Pair<String, String>{
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.DAY_OF_MONTH, 1)
@@ -178,6 +178,7 @@ class ReportsActivity: AppCompatActivity() {
         return Pair(startDate, endDate)
     }
 
+    //Setting up layout for pie chart
     private fun setupPieChart(entries: List<PieEntry>, centerText: String) {
         val dataSet = PieDataSet(entries, "").apply {
             colors = ColorTemplate.MATERIAL_COLORS.toList()
@@ -237,6 +238,7 @@ class ReportsActivity: AppCompatActivity() {
         return sharedPref.getLong("USER_ID", -1L)
     }
 
+    //Setting up layout of bar graph
     private fun setupBarChart(expenseTotals: Map<String, Double>, budgetMax: Map<String, Double>) {
         val barChart = findViewById<BarChart>(R.id.barChart)
 
@@ -295,7 +297,7 @@ class ReportsActivity: AppCompatActivity() {
         barChart.axisRight.isEnabled = false
         barChart.description.isEnabled = false
 
-        barChart.setExtraOffsets(10f, 10f, 10f, 30f) // More bottom space for the legend
+        barChart.setExtraOffsets(10f, 10f, 10f, 30f)
         barChart.setFitBars(true)
         barChart.groupBars(0f, groupSpace, barSpace)
 

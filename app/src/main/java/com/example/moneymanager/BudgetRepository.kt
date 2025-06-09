@@ -8,6 +8,7 @@ class BudgetRepository {
 
     private val database: DatabaseReference = FirebaseDatabase.getInstance().getReference("budgets")
 
+
     suspend fun insertBudget(budget: Budget): Boolean {
         return try {
             val key = if (budget.id.isBlank()) {
