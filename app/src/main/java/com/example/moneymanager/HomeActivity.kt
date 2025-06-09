@@ -9,11 +9,13 @@
 
 package com.example.moneymanager
 
+import GoalHomeAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,6 +25,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class HomeActivity : AppCompatActivity() {
+    private lateinit var goalRepository: GoalRepository
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: GoalHomeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,29 +36,22 @@ class HomeActivity : AppCompatActivity() {
 
         val welcomeMessage = findViewById<TextView>(R.id.tvWelcomeMessage)
         val userId = getUserid()
-        val recyclerView = findViewById<RecyclerView>(R.id.rv_goalHome)
+
+        goalRepository = GoalRepository()
+        recyclerView = findViewById(R.id.rv_goalHome)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val goalList = mutableListOf<Goal>()
-        val adapter = GoalAdapter(goalList) { _, _, _ -> }
-        recyclerView.adapter = adapter
+        recyclerView.isNestedScrollingEnabled = false
 
-        CoroutineScope(Dispatchers.IO).launch {
-            val user = "";
 
-            user?.let {
-                val welcomeText = "Welcome ${user}"
 
-                withContext(Dispatchers.Main) {
-                    welcomeMessage.text = welcomeText
-                }
-            }
-            //Retrieving goals from the database
-           // val goals = db.goalDao().getAllGoalsByUser(userId)
-            withContext(Dispatchers.Main) {
-                //goalList.addAll(goals)
-                adapter.notifyDataSetChanged()
-            }
+
+        lifecycleScope.launch {
+            val goalList = goalRepository.getAllGoalsByUser(userId)
+            adapter = GoalHomeAdapter(goalList)
+            recyclerView.adapter = adapter
         }
+
+
 
 
         //Allowing user to navigate to the account page
