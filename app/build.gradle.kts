@@ -44,12 +44,16 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.gson)
+
+
 
     // Room
     implementation("androidx.room:room-runtime:2.7.1")
     implementation("androidx.room:room-ktx:2.7.1")
     implementation(libs.firebase.database)
     kapt("androidx.room:room-compiler:2.7.1")
+
 
     implementation("com.google.android.material:material:1.10.0")
     implementation("com.google.android.material:material:1.4.0")
