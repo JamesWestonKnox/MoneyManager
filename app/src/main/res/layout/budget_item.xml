@@ -135,15 +135,6 @@
                             app:contentPaddingLeft="20dp"
                             app:contentPaddingRight="20dp">
 
-                            <TextView
-                                android:id="@+id/tv_limit2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/roboto"
-                                android:text="Limit: R3000"
-                                android:textAlignment="center"
-                                android:textColor="#F4F7F7"
-                                android:textSize="24sp" />
                         </androidx.cardview.widget.CardView>
 
                     </LinearLayout>

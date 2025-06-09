@@ -1,185 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
-    android:layout_marginBottom="100dp"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:visibility="visible">
+    android:fillViewport="true"
+    android:padding="16dp">
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:background="#FFFEFE"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:elevation="2dp"
-        app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="16dp"
-        app:contentPaddingBottom="20dp"
-        app:contentPaddingLeft="15dp"
-        app:contentPaddingRight="15dp">
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical"
+        android:visibility="visible">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical">
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="#FFFEFE"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:elevation="2dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:contentPaddingBottom="24dp"
+            app:contentPaddingLeft="15dp"
+            app:contentPaddingRight="15dp">
 
-            <TextView
-                android:id="@+id/tvPageName"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|top"
-                android:layout_marginBottom="-20dp"
-                android:fontFamily="@font/roboto"
-                android:paddingTop="15dp"
-                android:text="New Transaction"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="#1F4E5F"
-                android:textSize="36sp"
-                android:textStyle="bold" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/text"
-                android:layout_width="match_parent"
-                android:layout_height="539dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:background="#1F4E5F"
-                android:paddingBottom="15dp"
-                app:cardBackgroundColor="#1F4E5F"
-                app:cardCornerRadius="8dp">
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvPageName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|top"
+                    android:layout_marginBottom="-20dp"
+                    android:fontFamily="@font/roboto"
+                    android:paddingTop="15dp"
+                    android:text="New Transaction"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="#1F4E5F"
+                    android:textSize="36sp"
+                    android:textStyle="bold" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/text"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Transaction amount:"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:textStyle="normal" />
-
-                    <EditText
-                        android:id="@+id/edtAmount"
-                        android:layout_width="275dp"
-                        android:layout_height="37dp"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="12dp"
-                        android:background="#F8F7F7"
-                        android:backgroundTint="#F8F7F7"
-                        android:hint="R0.00"
-                        android:inputType="numberDecimal"
-                        android:textColor="#0B0B0B"
-                        android:textColorHint="#040404" />
-
-                    <TextView
-                        android:layout_width="270dp"
-                        android:layout_height="wrap_content"
-                        android:text="Date:"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp" />
-
-                    <EditText
-                        android:id="@+id/editTextDate"
-                        android:layout_width="275dp"
-                        android:layout_height="37dp"
-                        android:background="#F8F7F7"
-                        android:backgroundTint="#F8F7F7"
-                        android:clickable="true"
-                        android:focusable="false"
-                        android:hint="Select a date"
-                        android:textColor="#000000"
-                        android:textColorHint="#000000" />
-
-
-                    <Spinner
-                        android:id="@+id/spinnerTransactionType"
-                        android:layout_width="275dp"
-                        android:layout_height="37dp"
-                        android:layout_marginTop="16dp"
-                        android:backgroundTint="#FDFCFC"
-                        android:outlineProvider="background" />
-
-                    <Spinner
-                        android:id="@+id/spinnerTransactionCategory"
-                        android:layout_width="275dp"
-                        android:layout_height="37dp"
-                        android:layout_marginTop="16dp"
-                        android:backgroundTint="#FDFCFC" />
-
-                    <Switch
-                        android:id="@+id/swRecurring"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:paddingStart="7dp"
-                        android:text="Recurring"
-                        android:textSize="16sp" />
-
-                    <EditText
-                        android:id="@+id/edtDescription"
-                        android:layout_width="275dp"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="12dp"
-                        android:background="#FFFCFC"
-                        android:backgroundTint="#FFFFFF"
-                        android:gravity="top"
-                        android:hint="Description (Optional)"
-                        android:textColor="#000000"
-                        android:textColorHint="#000000"
-                        android:textSize="16sp" />
-
-                    <Button
-                        android:id="@+id/btnAttachFile"
-                        android:layout_width="275dp"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#79A8A9"
-                        android:text="Attach File/image" />
+                    android:layout_marginTop="30dp"
+                    android:background="#1F4E5F"
+                    android:paddingBottom="15dp"
+                    app:cardBackgroundColor="#1F4E5F"
+                    app:cardCornerRadius="8dp">
 
                     <LinearLayout
-                        android:layout_width="275dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="16dp">
 
-                        <Button
-                            android:id="@+id/btnCancel"
-                            android:layout_width="10dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="8dp"
-                            android:layout_weight="1"
-                            android:backgroundTint="#79A8A9"
-                            android:text="Cancel"
-                            android:textColor="#FFFFFF" />
-
-                        <Button
-                            android:id="@+id/btnSaveTransaction"
-                            android:layout_width="10dp"
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
+                            android:text="Transaction amount:"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
+
+                        <EditText
+                            android:id="@+id/edtAmount"
+                            android:layout_width="match_parent"
+                            android:layout_height="37dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="#F8F7F7"
+                            android:backgroundTint="#F8F7F7"
+                            android:hint="R0.00"
+                            android:inputType="numberDecimal"
+                            android:textColor="#0B0B0B"
+                            android:textColorHint="#040404" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Date:"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp" />
+
+                        <EditText
+                            android:id="@+id/editTextDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="37dp"
+                            android:background="#F8F7F7"
+                            android:backgroundTint="#F8F7F7"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:hint="Select a date"
+                            android:textColor="#000000"
+                            android:textColorHint="#000000" />
+
+                        <Spinner
+                            android:id="@+id/spinnerTransactionType"
+                            android:layout_width="match_parent"
+                            android:layout_height="37dp"
+                            android:layout_marginTop="16dp"
+                            android:backgroundTint="#FDFCFC"
+                            android:outlineProvider="background" />
+
+                        <Spinner
+                            android:id="@+id/spinnerTransactionCategory"
+                            android:layout_width="match_parent"
+                            android:layout_height="37dp"
+                            android:layout_marginTop="16dp"
+                            android:backgroundTint="#FDFCFC" />
+
+                        <Switch
+                            android:id="@+id/swRecurring"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:paddingStart="7dp"
+                            android:text="Recurring"
+                            android:textSize="16sp" />
+
+                        <EditText
+                            android:id="@+id/edtDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="#FFFCFC"
+                            android:backgroundTint="#FFFFFF"
+                            android:gravity="top"
+                            android:hint="Description (Optional)"
+                            android:textColor="#000000"
+                            android:textColorHint="#000000"
+                            android:textSize="16sp" />
+
+                        <Button
+                            android:id="@+id/btnAttachFile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:backgroundTint="#79A8A9"
-                            android:text="Save"
-                            android:textColor="#FAFAFA" />
+                            android:text="Attach File/image" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <Button
+                                android:id="@+id/btnCancel"
+                                android:layout_width="0dp"
+                                android:layout_height="48dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_weight="1"
+                                android:backgroundTint="#79A8A9"
+                                android:text="Cancel"
+                                android:textColor="#FFFFFF" />
+
+                            <Button
+                                android:id="@+id/btnSaveTransaction"
+                                android:layout_width="0dp"
+                                android:layout_height="48dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_weight="1"
+                                android:backgroundTint="#79A8A9"
+                                android:text="Save"
+                                android:textColor="#FAFAFA" />
+                        </LinearLayout>
+
                     </LinearLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-</LinearLayout>
-
-    <!-- ============================== End of file ============================== -->
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</ScrollView>
