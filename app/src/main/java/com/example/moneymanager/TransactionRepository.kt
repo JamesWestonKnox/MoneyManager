@@ -1,3 +1,11 @@
+/**
+ * TransactionRepository.kt
+ *
+ *
+ *
+ *
+ *  Assistance provided by ChatGPT, OpenAI (2025). https://chat.openai.com
+ */
 package com.example.moneymanager
 
 import com.google.firebase.database.FirebaseDatabase
@@ -77,3 +85,5 @@ class TransactionRepository {
 
 
 }
+
+// ============================== End of file ==============================

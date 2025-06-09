@@ -1,3 +1,11 @@
+/**
+ * GoalRepository.kt
+ *
+ *
+ *
+ *
+ *  Assistance provided by ChatGPT, OpenAI (2025). https://chat.openai.com
+ */
 package com.example.moneymanager
 
 import com.google.firebase.database.DatabaseReference
@@ -54,3 +62,5 @@ class GoalRepository {
 
 
 }
+
+// ============================== End of file ==============================

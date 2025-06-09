@@ -19,3 +19,4 @@ data class Goal(
     val totalAmount: Double = 0.0,
     val userID: Double = 0.0
 )
+// ============================== End of file ==============================

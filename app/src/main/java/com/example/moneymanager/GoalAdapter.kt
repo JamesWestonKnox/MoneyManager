@@ -60,3 +60,5 @@ class GoalAdapter( private val goals: MutableList<Goal>, private val onAddToGoal
         notifyItemChanged(position)
     }
 }
+
+// ============================== End of file ==============================

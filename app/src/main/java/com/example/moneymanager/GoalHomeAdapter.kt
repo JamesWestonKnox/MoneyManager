@@ -1,3 +1,12 @@
+/**
+ * GoalHomeAdapter.kt
+ *
+ *
+ *
+ *
+ *  Assistance provided by ChatGPT, OpenAI (2025). https://chat.openai.com
+ */
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,3 +57,5 @@ class GoalHomeAdapter(private val goalList: List<Goal>) :
 
     override fun getItemCount() = goalList.size
 }
+
+// ============================== End of file ==============================
