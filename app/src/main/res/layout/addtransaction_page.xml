@@ -119,6 +119,15 @@
                         android:layout_marginTop="16dp"
                         android:backgroundTint="#FDFCFC" />
 
+                    <Switch
+                        android:id="@+id/swRecurring"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:paddingStart="7dp"
+                        android:text="Recurring"
+                        android:textSize="16sp" />
+
                     <EditText
                         android:id="@+id/edtDescription"
                         android:layout_width="275dp"
